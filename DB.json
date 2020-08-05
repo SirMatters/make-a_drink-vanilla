@@ -1,0 +1,61 @@
+{
+  "cocktails": [
+    {
+      "id": "c1",
+      "name": "White Russian",
+      "raiting": "null",
+      "images": ["./resources/images/cocktails/White-Russian.jpg"],
+      "comments": [],
+      "steps": [
+        {
+          "text": "take 5 parts of vodka Russian Standard, 2 parts of a Coffe Liqueur, and 2 parts of a cream",
+          "ingredients": [
+            { "id": "i1", "amount": "5" },
+            { "id": "i2", "amount": "2" },
+            { "id": "i3", "amount": "2" }
+          ]
+        },
+        {
+          "text": "Pour liqueur and vodka into an old fashioned glass filled with ice; Float fresh cream and stir slowly",
+          "ingredients": []
+        }
+      ]
+    }
+  ],
+  "ingredients": [
+    {
+      "id": "i1",
+      "primaryName": "Vodka",
+      "name": "Vodka Russian Standard",
+      "alchoholContent": "40",
+      "image": "./resources/images/ingredients/vodka-russian-standard.jpeg",
+      "type": "fluid"
+    },
+    {
+      "id": "i2",
+      "primaryName": "Liqueur",
+      "name": "Coffe Liqueur",
+      "alchoholContent": "0",
+      "image": "./resources/images/ingredients/vodka-russian-standard.jpeg",
+      "type": "fluid"
+    },
+    {
+      "id": "i3",
+      "primaryName": "Cream",
+      "name": "Cream",
+      "alchoholContent": "0",
+      "image": "./resources/images/ingredients/vodka-russian-standard.jpeg",
+      "type": "fluid"
+    }
+  ],
+  "users": [
+    {
+      "id": "u1",
+      "name": "Alexander Matters",
+      "handle": "@sirmatters",
+      "cocktails": ["c1"],
+      "comments": []
+    }
+  ],
+  "comments": []
+}
