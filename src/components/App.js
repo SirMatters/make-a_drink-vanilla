@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { handleGetCocktails } from '../actions/cocktails';
+import NewCocktail from './NewCocktail';
 
 class App extends React.Component {
   componentDidMount() {
@@ -8,7 +9,7 @@ class App extends React.Component {
   }
 
   render() {
-    return <div>cocktails: {JSON.stringify(this.props)}</div>;
+    return Object.keys(this.props.cocktails).length !== 0 && <NewCocktail />;
   }
 }
 
