@@ -42,3 +42,11 @@ const generateID = () => {
     Math.random().toString(36).substring(2, 15)
   );
 };
+
+export const _deleteCocktail = (id) => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      res();
+    }, 200);
+  });
+};

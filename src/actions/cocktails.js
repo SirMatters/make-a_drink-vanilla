@@ -1,11 +1,11 @@
-import { _getCocktails, _addCocktail } from '../utils/API';
+import { _getCocktails, _addCocktail, _deleteCocktail } from '../utils/API';
 
 export const GET_COCKTAILS = 'GET_COCKTAILS';
 export const ADD_COCKTAIL = 'ADD_COCKTAIL';
 export const DELETE_COCKTAIL = 'DELETE_COCKTAIL';
 export const EDIT_COCKTAIL = 'EDIT_COCKTAIL';
 
-export const addCocktail = (cocktail) => ({
+const addCocktail = (cocktail) => ({
   type: ADD_COCKTAIL,
   cocktail,
 });
@@ -22,17 +22,25 @@ export const handleAddCocktail = (cocktail) => {
   };
 };
 
-export const deleteCocktail = (id) => ({
+const deleteCocktail = (id) => ({
   type: DELETE_COCKTAIL,
   id,
 });
 
-export const editCocktail = (cocktail) => ({
+export const handleDeleteCocktail = (id) => {
+  return (dispatch) => {
+    _deleteCocktail()
+      .then(dispatch(deleteCocktail(id)))
+      .catch((err) => {});
+  };
+};
+
+const editCocktail = (cocktail) => ({
   type: EDIT_COCKTAIL,
   cocktail,
 });
 
-export const getCocktails = (cocktails) => ({
+const getCocktails = (cocktails) => ({
   type: GET_COCKTAILS,
   cocktails,
 });

@@ -1,22 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { handleAddCocktail } from '../actions/cocktails';
+import { handleAddCocktail, handleDeleteCocktail } from '../actions/cocktails';
 
 class NewCocktail extends React.Component {
   state = {
     newCocktail: {
       name: '',
-      // FIXME: exclude hardcoded author
-      author: 'u1',
     },
   };
 
   onSumbmit = (e) => {
     e.preventDefault();
-    const { dispatch } = this.props;
+    const { dispatch, authedUser } = this.props;
     const { newCocktail } = this.state;
-    console.log(newCocktail);
-    dispatch(handleAddCocktail(newCocktail));
+    dispatch(handleAddCocktail({ ...newCocktail, author: authedUser }));
+    this.setState({
+      newCocktail: {
+        name: '',
+      },
+    });
+  };
+
+  onDelete = (id) => {
+    const { dispatch } = this.props;
+    dispatch(handleDeleteCocktail(id));
   };
 
   onInputChange = (event) => {
@@ -32,13 +39,17 @@ class NewCocktail extends React.Component {
   render() {
     const { name } = this.state.newCocktail;
     const { cocktails } = this.props;
-
     return (
       <div>
         <div>
           <ul>
             {Object.keys(cocktails).map((c) => {
-              return <li key={c}>{cocktails[c].name}</li>;
+              return (
+                <li key={c}>
+                  {cocktails[c].name}
+                  <span onClick={() => this.onDelete(c)}>X</span>
+                </li>
+              );
             })}
           </ul>
         </div>
