@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { handleGetCocktails } from '../actions/cocktails';
 import { authenticateUser } from '../actions/authedUser';
 import Dashboard from './Dashboard';
+import NewCocktail from './NewCocktail';
 
 class App extends React.Component {
   componentDidMount() {
@@ -12,7 +13,7 @@ class App extends React.Component {
   }
 
   render() {
-    return Object.keys(this.props.cocktails).length !== 0 && <Dashboard />;
+    return Object.keys(this.props.cocktails).length !== 0 && <NewCocktail />;
   }
 }
 
