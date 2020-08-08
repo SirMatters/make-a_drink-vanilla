@@ -11,6 +11,12 @@ let cocktails = {
     timestamp: 1596655939489,
     author: 'u2',
   },
+  c3: {
+    id: 'c3',
+    name: 'Cuba Libre',
+    timestamp: 1596655939489,
+    author: 'u2',
+  },
 };
 
 export const _getCocktails = () => {

@@ -35,7 +35,7 @@ export const handleDeleteCocktail = (id) => {
   };
 };
 
-const editCocktail = (cocktail) => ({
+export const editCocktail = (cocktail) => ({
   type: EDIT_COCKTAIL,
   cocktail,
 });

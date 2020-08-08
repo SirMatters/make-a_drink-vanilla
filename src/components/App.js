@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { handleGetCocktails } from '../actions/cocktails';
-import NewCocktail from './NewCocktail';
 import { authenticateUser } from '../actions/authedUser';
+import Dashboard from './Dashboard';
 
 class App extends React.Component {
   componentDidMount() {
@@ -12,7 +12,7 @@ class App extends React.Component {
   }
 
   render() {
-    return Object.keys(this.props.cocktails).length !== 0 && <NewCocktail />;
+    return Object.keys(this.props.cocktails).length !== 0 && <Dashboard />;
   }
 }
 
