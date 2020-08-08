@@ -8,7 +8,7 @@ const CocktailCard = ({ cocktail }) => {
     <div className='cocktail-card' onClick={onClick}>
       <div className='cocktail-card__info'>
         <div className='cocktail-card__img'>{cocktail.name} img</div>
-        <div className='cocktail-card__raiting'>{cocktail.name} raiting</div>
+        <div className='cocktail-card__raiting'>{cocktail.raiting}</div>
       </div>
       <div className='cocktail-card__name'>{cocktail.name}</div>
     </div>

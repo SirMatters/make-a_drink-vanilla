@@ -4,18 +4,21 @@ let cocktails = {
     name: 'White Russian',
     timpestamp: 1596655939489,
     author: 'u1',
+    raiting: 4.2,
   },
   c2: {
     id: 'c2',
     name: 'Tequilla Sunrise',
     timestamp: 1596655939489,
     author: 'u2',
+    raiting: 4.1,
   },
   c3: {
     id: 'c3',
     name: 'Cuba Libre',
     timestamp: 1596655939489,
     author: 'u2',
+    raiting: 4.3,
   },
 };
 
