@@ -33,7 +33,7 @@ class NewCocktail extends React.Component {
     dispatch(handleDeleteCocktail(id));
   };
 
-  onInputChange = (event) => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState(() => ({
       newCocktail: {
@@ -86,9 +86,10 @@ class NewCocktail extends React.Component {
 
   render() {
     const { name, description, steps } = this.state.newCocktail;
-    const { cocktails } = this.props;
+    // const { cocktails } = this.props;
     return (
-      <div>
+      <div className='new-cocktail'>
+        {/*
         <div>
           <ul>
             {Object.keys(cocktails).map((c) => {
@@ -100,18 +101,28 @@ class NewCocktail extends React.Component {
               );
             })}
           </ul>
-        </div>
-        <form onSubmit={this.onSumbmit}>
-          <input value={name} onChange={this.onInputChange} name='name' />
+          </div>
+          */}
+        <h1 className='new-cocktail__title'>Add a new awesome cocktail!</h1>
+        <form className='new-cocktail__form' onSubmit={this.onSumbmit}>
+          <input
+            className='new-cocktail__name'
+            value={name}
+            onChange={this.handleInputChange}
+            name='name'
+            placeholder='Be creative...'
+          />
           <textarea
+            className='new-cocktail__description'
             name='description'
             value={description}
-            onChange={this.onInputChange}
+            onChange={this.handleInputChange}
+            placeholder='Awesomeness starts here...'
           />
-          <div className='new-cocktail__steps'>
+          <div className='new-cocktail__steps-container'>
             {Object.keys(steps).map((s) => (
-              <li key={`step-${s}`}>
-                <span>{s}</span>
+              <li className='new-cocktail__step' key={`step-${s}`}>
+                <span className='step__number'>{s}</span>
                 <textarea
                   value={steps[s]}
                   name={`step-${s}`}
@@ -130,7 +141,11 @@ class NewCocktail extends React.Component {
               +
             </button>
           </div>
-          <button disabled={name === ''} type='submit'>
+          <button
+            className='new-coctail__submit'
+            disabled={name === ''}
+            type='submit'
+          >
             Add Cocktail
           </button>
         </form>

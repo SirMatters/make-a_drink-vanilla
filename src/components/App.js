@@ -13,7 +13,13 @@ class App extends React.Component {
   }
 
   render() {
-    return Object.keys(this.props.cocktails).length !== 0 && <NewCocktail />;
+    return (
+      <div className='app'>
+        <div className='container'>
+          {Object.keys(this.props.cocktails).length !== 0 && <NewCocktail />}
+        </div>
+      </div>
+    );
   }
 }
 

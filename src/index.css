@@ -1,6 +1,13 @@
 :root {
   font-size: 10px;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 0 auto;
+  width: 1200px;
 }
 
 .card-container {
@@ -35,4 +42,27 @@
 
 .cocktail-card__info {
   flex-grow: 1;
+}
+
+.new-cocktail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.new-cocktail__description {
+  display: block;
+}
+
+.new-cocktail__steps-container {
+  list-style: none;
+}
+
+.new-cocktail__step {
+  display: flex;
+  align-items: center;
+}
+
+.step__number {
+  font-size: 2em;
 }
