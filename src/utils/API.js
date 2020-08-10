@@ -8,6 +8,7 @@ let cocktails = {
     steps: [],
     ingredients: [],
     tags: [],
+    descrition: 'White russian description',
   },
   c2: {
     id: 'c2',
@@ -18,6 +19,7 @@ let cocktails = {
     steps: [],
     ingredients: [],
     tags: [],
+    descrition: 'Tequilla sunrise description',
   },
   c3: {
     id: 'c3',
@@ -28,6 +30,7 @@ let cocktails = {
     steps: [],
     ingredients: [],
     tags: [],
+    description: 'Cuba libre description',
   },
 };
 
@@ -74,15 +77,23 @@ export const _addCocktail = (cocktail) => {
   });
 };
 
-const formatCocktail = ({ name, author }) => ({
+const formatCocktail = ({
+  name,
+  author,
+  description,
+  steps,
+  ingredients,
+  tags,
+}) => ({
   id: generateID(),
   timestamp: Date.now(),
   name,
   author,
   raiting: null,
-  tags: [],
-  ingredients: [],
-  steps: [],
+  tags,
+  ingredients,
+  steps,
+  description,
 });
 
 const generateID = () => {

@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { handleAddCocktail, handleDeleteCocktail } from '../actions/cocktails';
+import { removeNumberedObjectItem } from '../utils/utils';
 
 class NewCocktail extends React.Component {
   state = {
     newCocktail: {
       name: '',
+      ingredients: [],
+      steps: { 1: '' },
+      description: [],
     },
   };
 
@@ -17,6 +21,9 @@ class NewCocktail extends React.Component {
     this.setState({
       newCocktail: {
         name: '',
+        ingredients: [],
+        steps: { 1: '' },
+        description: [],
       },
     });
   };
@@ -36,8 +43,49 @@ class NewCocktail extends React.Component {
     }));
   };
 
+  handleStepChange = (e) => {
+    const { name, value } = e.target;
+    const { steps } = this.state.newCocktail;
+    this.setState({
+      newCocktail: {
+        ...this.state.newCocktail,
+        steps: {
+          ...steps,
+          [name.split('-')[1]]: value,
+        },
+      },
+    });
+  };
+
+  handleNewStep = () => {
+    const { steps } = this.state.newCocktail;
+    const stepIds = Object.keys(steps);
+    const nextId = parseInt(stepIds[stepIds.length - 1]) + 1;
+    this.setState({
+      newCocktail: {
+        ...this.state.newCocktail,
+        steps: {
+          ...steps,
+          [nextId]: '',
+        },
+      },
+    });
+  };
+
+  handleDeleteStep = (s) => {
+    const steps = removeNumberedObjectItem(this.state.newCocktail.steps, s);
+    this.setState({
+      newCocktail: {
+        ...this.state.newCocktail,
+        steps: {
+          ...steps,
+        },
+      },
+    });
+  };
+
   render() {
-    const { name } = this.state.newCocktail;
+    const { name, description, steps } = this.state.newCocktail;
     const { cocktails } = this.props;
     return (
       <div>
@@ -55,7 +103,36 @@ class NewCocktail extends React.Component {
         </div>
         <form onSubmit={this.onSumbmit}>
           <input value={name} onChange={this.onInputChange} name='name' />
-          <button>Add Cocktail</button>
+          <textarea
+            name='description'
+            value={description}
+            onChange={this.onInputChange}
+          />
+          <div className='new-cocktail__steps'>
+            {Object.keys(steps).map((s) => (
+              <li key={`step-${s}`}>
+                <span>{s}</span>
+                <textarea
+                  value={steps[s]}
+                  name={`step-${s}`}
+                  onChange={this.handleStepChange}
+                />
+                <span
+                  onClick={() => {
+                    this.handleDeleteStep(s);
+                  }}
+                >
+                  X
+                </span>
+              </li>
+            ))}
+            <button type='button' onClick={this.handleNewStep}>
+              +
+            </button>
+          </div>
+          <button disabled={name === ''} type='submit'>
+            Add Cocktail
+          </button>
         </form>
       </div>
     );
