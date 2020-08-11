@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { LoadingBar } from 'react-redux-loading-bar';
 import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
@@ -40,7 +39,6 @@ class Header extends React.Component {
             OUT
           </div>
         </div>
-        <LoadingBar />
       </div>
     );
   }

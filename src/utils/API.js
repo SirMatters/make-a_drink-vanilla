@@ -63,7 +63,7 @@ let ingredients = {
 
 export const _getCocktails = () => {
   return new Promise((res, rej) => {
-    setTimeout(() => res(cocktails), 200);
+    setTimeout(() => res(cocktails), 500);
   });
 };
 
