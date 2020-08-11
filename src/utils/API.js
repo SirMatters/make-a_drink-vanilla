@@ -84,6 +84,7 @@ const formatCocktail = ({
   steps,
   ingredients,
   tags,
+  image,
 }) => ({
   id: generateID(),
   timestamp: Date.now(),
@@ -94,6 +95,7 @@ const formatCocktail = ({
   ingredients,
   steps,
   description,
+  image,
 });
 
 const generateID = () => {

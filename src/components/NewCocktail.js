@@ -9,7 +9,8 @@ class NewCocktail extends React.Component {
       name: '',
       ingredients: [],
       steps: { 1: '' },
-      description: [],
+      description: '',
+      image: '',
     },
   };
 
@@ -23,7 +24,8 @@ class NewCocktail extends React.Component {
         name: '',
         ingredients: [],
         steps: { 1: '' },
-        description: [],
+        description: '',
+        image: '',
       },
     });
   };
@@ -85,24 +87,10 @@ class NewCocktail extends React.Component {
   };
 
   render() {
-    const { name, description, steps } = this.state.newCocktail;
+    const { name, description, steps, image } = this.state.newCocktail;
     // const { cocktails } = this.props;
     return (
       <div className='new-cocktail'>
-        {/*
-        <div>
-          <ul>
-            {Object.keys(cocktails).map((c) => {
-              return (
-                <li key={c}>
-                  {cocktails[c].name}
-                  <span onClick={() => this.onDelete(c)}>X</span>
-                </li>
-              );
-            })}
-          </ul>
-          </div>
-          */}
         <h1 className='new-cocktail__title'>Add a new awesome cocktail!</h1>
         <form className='new-cocktail__form' onSubmit={this.onSumbmit}>
           <input
@@ -112,6 +100,14 @@ class NewCocktail extends React.Component {
             name='name'
             placeholder='Be creative...'
           />
+          <div className='new-cocktail__img'>
+            <input
+              placeholder='Provide image link'
+              value={image}
+              name='image'
+              onChange={this.handleInputChange}
+            />
+          </div>
           <textarea
             className='new-cocktail__description'
             name='description'
