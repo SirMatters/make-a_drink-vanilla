@@ -40,7 +40,7 @@ export const editCocktail = (cocktail) => ({
   cocktail,
 });
 
-const getCocktails = (cocktails) => ({
+export const getCocktails = (cocktails) => ({
   type: GET_COCKTAILS,
   cocktails,
 });

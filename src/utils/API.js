@@ -63,7 +63,7 @@ let ingredients = {
 
 export const _getCocktails = () => {
   return new Promise((res, rej) => {
-    setTimeout(() => res({ cocktails }), 200);
+    setTimeout(() => res(cocktails), 200);
   });
 };
 
@@ -113,4 +113,10 @@ export const _deleteCocktail = (id) => {
       res();
     }, 200);
   });
+};
+
+export const _getInitialData = () => {
+  return Promise.all([_getCocktails()]).then(([cocktails]) => ({
+    cocktails,
+  }));
 };

@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { LoadingBar } from 'react-redux-loading-bar';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
   onSearch = () => {};
@@ -12,9 +14,11 @@ class Header extends React.Component {
 
     return (
       <div className='header'>
-        <div className='header__logo'></div>
+        <Link to='/' className='header__logo'>
+          M-A-D
+        </Link>
         <div className='header__controls'>
-          <div>New Cocktail</div>
+          <Link to='/add'>New Cocktail</Link>
         </div>
         <div className='header__search'>
           <input
@@ -36,6 +40,7 @@ class Header extends React.Component {
             OUT
           </div>
         </div>
+        <LoadingBar />
       </div>
     );
   }

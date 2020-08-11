@@ -1,35 +1,36 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleGetCocktails } from '../actions/cocktails';
 import { authenticateUser } from '../actions/authedUser';
 import Dashboard from './Dashboard';
 import NewCocktail from './NewCocktail';
 import Header from './Header';
+import { handleInitialData } from '../actions/shared';
 
 class App extends React.Component {
   componentDidMount() {
-    // FIXME: fix user
-    this.props.dispatch(authenticateUser('placeholder'));
-    this.props.dispatch(handleGetCocktails());
+    this.props.dispatch(handleInitialData());
   }
 
   render() {
     return (
-      <div className='app'>
-        {this.props.authedUser ? (
-          <div>
-            <Header />
-            <div className='container'>
-              {Object.keys(this.props.cocktails).length !== 0 && (
-                <NewCocktail />
-              )}
+      <Router>
+        <div className='app'>
+          {this.props.authedUser ? (
+            <div>
+              <Header />
+              <div className='container'>
+                <Switch>
+                  <Route path='/' exact component={Dashboard} />
+                  <Route path='/add' component={NewCocktail} />
+                </Switch>
+              </div>
             </div>
-          </div>
-        ) : (
-          // TODO: provide login page
-          <div>Please, auth</div>
-        )}
-      </div>
+          ) : // TODO: provide login page
+          null}
+        </div>
+      </Router>
     );
   }
 }
