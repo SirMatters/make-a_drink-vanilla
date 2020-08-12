@@ -1,8 +1,9 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
-const CocktailCard = ({ cocktail }) => {
+const CocktailCard = ({ cocktail, history }) => {
   const onClick = () => {
-    alert(`Clicked cocktail ${cocktail.name}`);
+    history.push(`/cocktails/${cocktail.id}`);
   };
   return (
     <div className='cocktail-card' onClick={onClick}>
@@ -15,4 +16,4 @@ const CocktailCard = ({ cocktail }) => {
   );
 };
 
-export default CocktailCard;
+export default withRouter(CocktailCard);

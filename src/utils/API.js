@@ -5,10 +5,17 @@ let cocktails = {
     timpestamp: 1596655939489,
     author: 'u1',
     raiting: 4.2,
-    steps: [],
+    steps: {
+      1: 'WR step 1',
+      2: 'WR step 2',
+      3: 'WR step 3',
+    },
     ingredients: [],
     tags: [],
-    descrition: 'White russian description',
+    description: 'White russian description',
+    comments: [],
+    image:
+      'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
   },
   c2: {
     id: 'c2',
@@ -16,10 +23,16 @@ let cocktails = {
     timestamp: 1596655939489,
     author: 'u2',
     raiting: 4.1,
-    steps: [],
+    steps: {
+      1: 'TS step 1',
+      2: 'TS step 2',
+      3: 'TS step 3',
+    },
     ingredients: [],
     tags: [],
-    descrition: 'Tequilla sunrise description',
+    description: 'Tequilla sunrise description',
+    comments: [],
+    image: '',
   },
   c3: {
     id: 'c3',
@@ -27,10 +40,16 @@ let cocktails = {
     timestamp: 1596655939489,
     author: 'u2',
     raiting: 4.3,
-    steps: [],
+    steps: {
+      1: 'CL step 1',
+      2: 'CL step 2',
+      3: 'CL step 3',
+    },
     ingredients: [],
     tags: [],
     description: 'Cuba libre description',
+    comments: [],
+    image: '',
   },
 };
 
@@ -96,6 +115,7 @@ const formatCocktail = ({
   steps,
   description,
   image,
+  comments: [],
 });
 
 const generateID = () => {

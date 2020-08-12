@@ -6,6 +6,7 @@ import NewCocktail from './NewCocktail';
 import Header from './Header';
 import { handleInitialData } from '../actions/shared';
 import LoadingBar from 'react-redux-loading-bar';
+import ViewCocktail from './ViewCocktail';
 
 class App extends React.Component {
   componentDidMount() {
@@ -24,6 +25,7 @@ class App extends React.Component {
                 <Switch>
                   <Route path='/' exact component={Dashboard} />
                   <Route path='/add' component={NewCocktail} />
+                  <Route path='/cocktails/:id' component={ViewCocktail} />
                 </Switch>
               </div>
             </div>

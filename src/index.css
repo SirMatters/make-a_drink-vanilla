@@ -93,3 +93,13 @@
 .step__number {
   font-size: 2em;
 }
+
+.cocktail__img {
+  display: block;
+  max-height: 30em;
+
+  position: relative;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
