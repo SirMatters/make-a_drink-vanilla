@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { handleAddCocktail, handleDeleteCocktail } from '../actions/cocktails';
+import {
+  handleAddCocktail,
+  handleDeleteCocktail,
+  handleEditCocktail,
+} from '../actions/cocktails';
 import { removeNumberedObjectItem } from '../utils/utils';
 
 class NewCocktail extends React.Component {
@@ -14,20 +18,33 @@ class NewCocktail extends React.Component {
     },
   };
 
+  componentDidMount() {
+    if (this.props.id) {
+      const cocktail = this.props.cocktail;
+      this.setState({
+        newCocktail: cocktail,
+      });
+    }
+  }
+
   onSumbmit = (e) => {
     e.preventDefault();
-    const { dispatch, authedUser } = this.props;
+    const { dispatch, authedUser, id } = this.props;
     const { newCocktail } = this.state;
-    dispatch(handleAddCocktail({ ...newCocktail, author: authedUser }));
-    this.setState({
-      newCocktail: {
-        name: '',
-        ingredients: [],
-        steps: { 1: '' },
-        description: '',
-        image: '',
-      },
-    });
+    if (!id) {
+      dispatch(handleAddCocktail({ ...newCocktail, author: authedUser }));
+      this.setState({
+        newCocktail: {
+          name: '',
+          ingredients: [],
+          steps: { 1: '' },
+          description: '',
+          image: '',
+        },
+      });
+    } else {
+      dispatch(handleEditCocktail(newCocktail));
+    }
   };
 
   onDelete = (id) => {
@@ -88,7 +105,6 @@ class NewCocktail extends React.Component {
 
   render() {
     const { name, description, steps, image } = this.state.newCocktail;
-    // const { cocktails } = this.props;
     return (
       <div className='new-cocktail'>
         <h1 className='new-cocktail__title'>Add a new awesome cocktail!</h1>
@@ -150,5 +166,14 @@ class NewCocktail extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = (state, ownProps) => {
+  const { id } = ownProps;
+  if (id) {
+    return {
+      id,
+      cocktail: state.cocktails[id],
+    };
+  }
+  return ownProps;
+};
 export default connect(mapStateToProps)(NewCocktail);

@@ -1,4 +1,9 @@
-import { _getCocktails, _addCocktail, _deleteCocktail } from '../utils/API';
+import {
+  _getCocktails,
+  _addCocktail,
+  _deleteCocktail,
+  _editCocktail,
+} from '../utils/API';
 
 export const GET_COCKTAILS = 'GET_COCKTAILS';
 export const ADD_COCKTAIL = 'ADD_COCKTAIL';
@@ -39,6 +44,20 @@ export const editCocktail = (cocktail) => ({
   type: EDIT_COCKTAIL,
   cocktail,
 });
+
+export const handleEditCocktail = (cocktail) => {
+  // TODO: think of positive-expected flow
+  return (dispatch) => {
+    _editCocktail()
+      .then(() => {
+        dispatch(editCocktail(cocktail));
+        console.log('Dispatching edit cocktail:', cocktail);
+      })
+      .catch((err) => {
+        console.log('Err from handleEditCocktail', err);
+      });
+  };
+};
 
 export const getCocktails = (cocktails) => ({
   type: GET_COCKTAILS,

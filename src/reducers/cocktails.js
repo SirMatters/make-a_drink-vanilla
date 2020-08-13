@@ -2,6 +2,7 @@ import {
   GET_COCKTAILS,
   ADD_COCKTAIL,
   DELETE_COCKTAIL,
+  EDIT_COCKTAIL,
 } from '../actions/cocktails';
 
 export const cocktails = (state = {}, action) => {
@@ -9,6 +10,7 @@ export const cocktails = (state = {}, action) => {
     case GET_COCKTAILS:
       return action.cocktails;
     case ADD_COCKTAIL:
+    case EDIT_COCKTAIL:
       const { cocktail } = action;
       return {
         ...state,

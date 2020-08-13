@@ -32,7 +32,8 @@ let cocktails = {
     tags: [],
     description: 'Tequilla sunrise description',
     comments: [],
-    image: '',
+    image:
+      'https://tse3.mm.bing.net/th?id=OIP.16ojvtvUooNafhwvBRwL6gHaLH&pid=Api',
   },
   c3: {
     id: 'c3',
@@ -49,7 +50,8 @@ let cocktails = {
     tags: [],
     description: 'Cuba libre description',
     comments: [],
-    image: '',
+    image:
+      'https://craftybartending.com/wp-content/uploads/2018/04/Cuba-Libre-cocktail.jpg',
   },
 };
 
@@ -139,4 +141,10 @@ export const _getInitialData = () => {
   return Promise.all([_getCocktails()]).then(([cocktails]) => ({
     cocktails,
   }));
+};
+
+export const _editCocktail = (cocktail) => {
+  return new Promise((res, rej) => {
+    setTimeout(() => res(cocktail), 200);
+  });
 };

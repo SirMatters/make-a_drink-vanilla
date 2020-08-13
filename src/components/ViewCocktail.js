@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class ViewCocktail extends React.Component {
   render() {
@@ -7,6 +8,7 @@ class ViewCocktail extends React.Component {
     const { steps } = cocktail;
     return (
       <div className='cocktail'>
+        <Link to={`/cocktails/${cocktail.id}/edit`}>Edit</Link>
         <div className='cocktail__name'>{cocktail.name}</div>
         {/*TODO: provide default image*/}
         {cocktail.image ? (
