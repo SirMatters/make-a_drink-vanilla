@@ -103,3 +103,19 @@
   width: auto;
   height: auto;
 }
+
+.cocktail-card {
+  overflow: hidden;
+}
+
+.cocktail-card__info {
+  position: relative;
+}
+
+.cocktail-card__raiting {
+  position: absolute;
+  color: red;
+  top: 100%;
+  left: 100%;
+  transform: translate(-100%, -100%);
+}
