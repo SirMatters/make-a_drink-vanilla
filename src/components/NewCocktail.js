@@ -30,6 +30,7 @@ class NewCocktail extends React.Component {
   onSumbmit = (e) => {
     e.preventDefault();
     const { dispatch, authedUser, id } = this.props;
+    console.log('Authed:', authedUser);
     const { newCocktail } = this.state;
     if (!id) {
       dispatch(handleAddCocktail({ ...newCocktail, author: authedUser }));
@@ -79,7 +80,7 @@ class NewCocktail extends React.Component {
   handleNewStep = () => {
     const { steps } = this.state.newCocktail;
     const stepIds = Object.keys(steps);
-    const nextId = parseInt(stepIds[stepIds.length - 1]) + 1;
+    const nextId = parseInt(stepIds[stepIds.length - 1]) + 1 || 1;
     this.setState({
       newCocktail: {
         ...this.state.newCocktail,
@@ -168,12 +169,14 @@ class NewCocktail extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { id } = ownProps;
+  const { authedUser } = state;
   if (id) {
     return {
       id,
       cocktail: state.cocktails[id],
+      authedUser,
     };
   }
-  return ownProps;
+  return { authedUser, ...ownProps };
 };
 export default connect(mapStateToProps)(NewCocktail);
