@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import AutocompleteSearch from './AutocompleteSearch';
 
 class Header extends React.Component {
   onSearch = () => {};
@@ -20,11 +21,12 @@ class Header extends React.Component {
           <Link to='/add'>New Cocktail</Link>
         </div>
         <div className='header__search'>
-          <input
+          {/* <input
             onChange={this.onSearch}
             value={''}
             placeholder='Find your cocktail...'
-          />
+          /> */}
+          <AutocompleteSearch />
         </div>
         <div className='header__user-controls'>
           <div className='header__user-info'></div>
