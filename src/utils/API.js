@@ -4,7 +4,8 @@ let cocktails = {
     name: 'White Russian',
     timpestamp: 1596655939489,
     author: 'u1',
-    raiting: 4.2,
+    rating: 4.2,
+    votes: 1057,
     steps: {
       1: 'WR step 1',
       2: 'WR step 2',
@@ -22,7 +23,8 @@ let cocktails = {
     name: 'Tequilla Sunrise',
     timestamp: 1596655939489,
     author: 'u2',
-    raiting: 4.1,
+    rating: 4.1,
+    votes: 330,
     steps: {
       1: 'TS step 1',
       2: 'TS step 2',
@@ -40,7 +42,8 @@ let cocktails = {
     name: 'Cuba Libre',
     timestamp: 1596655939489,
     author: 'u2',
-    raiting: 4.3,
+    rating: 3.3,
+    votes: 69,
     steps: {
       1: 'CL step 1',
       2: 'CL step 2',
@@ -111,7 +114,7 @@ const formatCocktail = ({
   timestamp: Date.now(),
   name,
   author,
-  raiting: null,
+  rating: null,
   tags,
   ingredients,
   steps,

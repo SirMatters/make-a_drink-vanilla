@@ -23,7 +23,10 @@ class ViewCocktail extends React.Component {
             alt={`cocktail-${cocktail.id}-img`}
           />
         ) : null}
-        <StarsRating maxVal={5} />
+        <StarsRating
+          currentRating={cocktail.rating}
+          votesNum={cocktail.votes}
+        />
         <div className='cocktail__description'>{cocktail.description}</div>
         <div className='cocktail__steps-container'>
           {Object.keys(steps).map((s) => (
