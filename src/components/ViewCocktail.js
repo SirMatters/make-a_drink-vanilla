@@ -1,8 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import StarsRating from './StarsRating';
 
 class ViewCocktail extends React.Component {
+  onRating = (value) => {
+    console.log(value);
+  };
+
   render() {
     const { cocktail } = this.props;
     const { steps } = cocktail;
@@ -18,6 +23,7 @@ class ViewCocktail extends React.Component {
             alt={`cocktail-${cocktail.id}-img`}
           />
         ) : null}
+        <StarsRating maxVal={5} />
         <div className='cocktail__description'>{cocktail.description}</div>
         <div className='cocktail__steps-container'>
           {Object.keys(steps).map((s) => (

@@ -160,3 +160,7 @@
 .autocomplete-search a:hover {
   text-decoration: underline;
 }
+
+.rating-star input {
+  display: none;
+}
