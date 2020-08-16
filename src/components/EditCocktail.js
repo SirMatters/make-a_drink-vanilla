@@ -11,7 +11,7 @@ class EditCocktail extends React.Component {
     return (
       <div>
         {cocktails[id] ? (
-          authedUser === cocktails[id].author ? (
+          authedUser.id === cocktails[id].author ? (
             <NewCocktail id={id} />
           ) : (
             <div>

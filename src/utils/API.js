@@ -4,8 +4,8 @@ let cocktails = {
     name: 'White Russian',
     timpestamp: 1596655939489,
     author: 'u1',
-    rating: 4.2,
-    votes: 1057,
+    rating: 2,
+    votes: 1,
     steps: {
       1: 'WR step 1',
       2: 'WR step 2',
@@ -85,6 +85,38 @@ let ingredients = {
   },
 };
 
+let users = {
+  u1: {
+    id: 'u1',
+    handle: '@kperov',
+    firstName: 'Kirill',
+    lastName: 'Perov',
+    votes: {
+      c2: 5,
+    },
+  },
+  u2: {
+    id: 'u2',
+    handle: '@insoul',
+    firstName: 'Evgenii',
+    lastName: 'Belan',
+    votes: {},
+  },
+};
+
+let comments = {
+  com1: {
+    id: 'com1',
+    author: 'u1',
+    timestamp: Date.now(),
+    edited: null,
+    text: 'Sample comment text. Lorem-blarem',
+    likes: [],
+    parent: null,
+    cocktailId: 'c1',
+  },
+};
+
 export const _getCocktails = () => {
   return new Promise((res, rej) => {
     setTimeout(() => res(cocktails), 500);
@@ -141,13 +173,74 @@ export const _deleteCocktail = (id) => {
 };
 
 export const _getInitialData = () => {
-  return Promise.all([_getCocktails()]).then(([cocktails]) => ({
-    cocktails,
-  }));
+  return Promise.all([_getCocktails(), _getUsers()]).then(
+    ([cocktails, users]) => ({
+      cocktails,
+      users,
+    })
+  );
 };
 
 export const _editCocktail = (cocktail) => {
   return new Promise((res, rej) => {
     setTimeout(() => res(cocktail), 200);
+  });
+};
+
+export const _getRatingVote = () => {
+  return new Promise((res, rej) => {
+    setTimeout(() => res(), 200);
+  });
+};
+
+export const _getUsers = () => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      res(users);
+    }, 200);
+  });
+};
+
+export const _getUsersByIds = (idArr) => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      const result = [];
+      for (let id in idArr) {
+        const user = users[id];
+        if (user) {
+          result.push(user);
+        }
+      }
+      res(result);
+    }, 200);
+  });
+};
+
+export const _updateUser = (userData) => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      const user = users[userData.id];
+      const { id, ...updatedFields } = userData;
+      if (user) {
+        res({ ...user, ...updatedFields });
+        console.log('API updated user positively');
+      } else {
+        rej();
+      }
+    }, 200);
+  });
+};
+
+export const _getUserDataById = (userId) => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      const user = users[userId];
+      if (user) {
+        res(user);
+      } else {
+        console.log('no user');
+        rej();
+      }
+    }, 200);
   });
 };

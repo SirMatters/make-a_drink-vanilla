@@ -8,6 +8,7 @@ import { handleInitialData } from '../actions/shared';
 import LoadingBar from 'react-redux-loading-bar';
 import ViewCocktail from './ViewCocktail';
 import EditCocktail from './EditCocktail';
+import { handleUserAuthentication } from '../actions/authedUser';
 
 class App extends React.Component {
   componentDidMount() {

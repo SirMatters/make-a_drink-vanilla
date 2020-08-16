@@ -30,10 +30,9 @@ class NewCocktail extends React.Component {
   onSumbmit = (e) => {
     e.preventDefault();
     const { dispatch, authedUser, id } = this.props;
-    console.log('Authed:', authedUser);
     const { newCocktail } = this.state;
     if (!id) {
-      dispatch(handleAddCocktail({ ...newCocktail, author: authedUser }));
+      dispatch(handleAddCocktail({ ...newCocktail, author: authedUser.id }));
       this.setState({
         newCocktail: {
           name: '',

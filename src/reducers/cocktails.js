@@ -10,11 +10,16 @@ export const cocktails = (state = {}, action) => {
     case GET_COCKTAILS:
       return action.cocktails;
     case ADD_COCKTAIL:
-    case EDIT_COCKTAIL:
-      const { cocktail } = action;
       return {
         ...state,
-        [cocktail.id]: cocktail,
+        [action.cocktail.id]: action.cocktail,
+      };
+    case EDIT_COCKTAIL:
+      const { id, ...updatedFields } = action.cocktail;
+
+      return {
+        ...state,
+        [id]: { ...state[id], ...updatedFields },
       };
     case DELETE_COCKTAIL:
       const newState = { ...state };

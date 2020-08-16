@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 
-const StarsRating = ({ maxVal, currentRating, disabled, votesNum }) => {
+const StarsRating = ({
+  maxVal,
+  currentRating,
+  disabled,
+  votesNum,
+  onChange,
+  totalRating,
+}) => {
   const [rating, setRating] = useState(Math.floor(currentRating));
   const [hover, setHover] = useState(null);
 
   const handleClick = (ratingVal) => {
     if (!disabled) {
       setRating(ratingVal);
+      onChange(ratingVal);
     }
   };
 
@@ -37,7 +45,7 @@ const StarsRating = ({ maxVal, currentRating, disabled, votesNum }) => {
         );
       })}
       <span>
-        {currentRating}({votesNum})
+        {totalRating}({votesNum})
       </span>
     </div>
   );
