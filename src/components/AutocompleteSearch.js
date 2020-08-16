@@ -1,34 +1,47 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class AutocompleteSearch extends React.Component {
   state = {
     input: '',
+    // TODO: this value should be used when focus is not chosen???
     searchHidden: true,
+    suggestions: [],
   };
-
-  suggestions = ['Alex', 'Alan', 'Aaron', 'Sam', 'Samuel', 'Samantha'];
 
   handleInput = (e) => {
     const { value } = e.target;
     if (value !== '') {
       this.setState({
         input: value,
-        searchHidden: false,
       });
     } else {
-      this.setState({ input: value, searchHidden: true });
+      this.setState({ input: value });
+    }
+    this.updateSuggestions(value);
+  };
+
+  updateSuggestions = (inputVal) => {
+    if (inputVal !== '' && inputVal !== ' ') {
+      // TODO: change to API request for huge number of cocktails
+      const APIreturn = Object.values(this.props.cocktails).filter((c) =>
+        c.name.toLowerCase().includes(inputVal.toLowerCase())
+      );
+      const updatedSuggestions = Object.values(APIreturn)
+        .sort((a, b) => a > b)
+        .slice(0, 5);
+      this.setState({ suggestions: updatedSuggestions });
+    } else {
+      this.setState({ suggestions: [] });
     }
   };
 
-  handleSugestionClick = (e) => {
-    const { innerText } = e.target;
-    this.setState({ input: innerText, searchHidden: true });
+  handleSugestionClick = (name) => {
+    this.setState({ input: name, suggestions: [] });
   };
 
   render() {
-    const displaySuggestions = this.suggestions
-      .filter((s) => s.toLowerCase().includes(this.state.input.toLowerCase()))
-      .sort((a, b) => a > b);
+    const displaySuggestions = this.state.suggestions;
 
     return (
       <div className='autocomplete-search'>
@@ -37,11 +50,14 @@ class AutocompleteSearch extends React.Component {
           onChange={this.handleInput}
           type='text'
         />
-        {!this.state.searchHidden ? (
+        {!this.state.suggestions.length !== 0 ? (
           <ul>
             {displaySuggestions.map((s) => (
-              <li key={`sug-${s}`} onClick={this.handleSugestionClick}>
-                {s}
+              <li
+                key={`sug-${s.id}`}
+                onClick={() => this.handleSugestionClick(s.name)}
+              >
+                {s.name}
               </li>
             ))}
           </ul>
@@ -51,4 +67,5 @@ class AutocompleteSearch extends React.Component {
   }
 }
 
-export default AutocompleteSearch;
+const mapStateToProps = ({ cocktails }) => ({ cocktails });
+export default connect(mapStateToProps)(AutocompleteSearch);
