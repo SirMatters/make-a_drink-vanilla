@@ -151,11 +151,12 @@
   border-top: 1px solid grey;
 }
 
-.autocomplete-search li {
+.autocomplete-search a {
   padding: 10px 15px;
   cursor: pointer;
+  display: block;
 }
 
-.autocomplete-search li:hover {
+.autocomplete-search a:hover {
   text-decoration: underline;
 }

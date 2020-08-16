@@ -37,7 +37,7 @@ class AutocompleteSearch extends React.Component {
     }
   };
 
-  handleSugestionClick = (name) => {
+  handleSugestionClick = () => {
     this.setState({ input: '', suggestions: [] });
   };
 
@@ -55,12 +55,13 @@ class AutocompleteSearch extends React.Component {
         {!this.state.suggestions.length !== 0 ? (
           <ul>
             {displaySuggestions.map((s) => (
-              <li
+              <Link
                 key={`sug-${s.id}`}
-                onClick={() => this.handleSugestionClick(s.name)}
+                onClick={this.handleSugestionClick}
+                to={`/cocktails/${s.id}`}
               >
-                <Link to={`/cocktails/${s.id}`}>{s.name}</Link>
-              </li>
+                {s.name}
+              </Link>
             ))}
           </ul>
         ) : null}
