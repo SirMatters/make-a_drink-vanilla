@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class AutocompleteSearch extends React.Component {
   state = {
     input: '',
-    // TODO: this value should be used when focus is not chosen???
+    // TODO: this value should be used when focus is not focused???
     searchHidden: true,
     suggestions: [],
   };
@@ -37,7 +38,7 @@ class AutocompleteSearch extends React.Component {
   };
 
   handleSugestionClick = (name) => {
-    this.setState({ input: name, suggestions: [] });
+    this.setState({ input: '', suggestions: [] });
   };
 
   render() {
@@ -49,6 +50,7 @@ class AutocompleteSearch extends React.Component {
           value={this.state.input}
           onChange={this.handleInput}
           type='text'
+          placeholder='Input cocktail name...'
         />
         {!this.state.suggestions.length !== 0 ? (
           <ul>
@@ -57,7 +59,7 @@ class AutocompleteSearch extends React.Component {
                 key={`sug-${s.id}`}
                 onClick={() => this.handleSugestionClick(s.name)}
               >
-                {s.name}
+                <Link to={`/cocktails/${s.id}`}>{s.name}</Link>
               </li>
             ))}
           </ul>
