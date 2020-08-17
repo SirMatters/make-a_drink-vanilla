@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaStar } from 'react-icons/fa';
 
 const StarsRating = ({
@@ -9,8 +9,12 @@ const StarsRating = ({
   onChange,
   totalRating,
 }) => {
-  const [rating, setRating] = useState(Math.floor(currentRating));
+  const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+
+  useEffect(() => {
+    setRating(Math.floor(currentRating));
+  });
 
   const handleClick = (ratingVal) => {
     if (!disabled) {

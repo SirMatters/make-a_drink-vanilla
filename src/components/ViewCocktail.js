@@ -41,6 +41,7 @@ class ViewCocktail extends React.Component {
   render() {
     const { cocktail, authedUser } = this.props;
     const vote = authedUser.votes[cocktail.id];
+    console.log(cocktail, 'vote', vote);
     const { steps } = cocktail;
     return (
       <div className='cocktail'>
