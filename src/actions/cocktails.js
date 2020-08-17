@@ -46,15 +46,16 @@ export const editCocktail = (cocktail) => ({
 });
 
 export const handleEditCocktail = (cocktail) => {
-  // TODO: think of positive-expected flow
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    dispatch(editCocktail(cocktail));
+    const oldData = getState().cocktails[cocktail.id];
     _editCocktail()
       .then(() => {
-        dispatch(editCocktail(cocktail));
         console.log('Dispatching edit cocktail:', cocktail);
       })
       .catch((err) => {
         console.log('Err from handleEditCocktail', err);
+        dispatch(editCocktail(oldData));
       });
   };
 };

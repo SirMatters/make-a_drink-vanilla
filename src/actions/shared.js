@@ -1,8 +1,13 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
-import { _getInitialData, _getRatingVote } from '../utils/API';
-import { getCocktails, handleEditCocktail } from './cocktails';
+import {
+  _getInitialData,
+  _getRatingVote,
+  _updateUser,
+  _editCocktail,
+} from '../utils/API';
+import { getCocktails, handleEditCocktail, editCocktail } from './cocktails';
 import { handleUserAuthentication, authenticateUser } from './authedUser';
-import { handleUserUpdate, getUsers } from './users';
+import { handleUserUpdate, getUsers, updateUser } from './users';
 
 export const handleInitialData = () => {
   return (dispatch) => {
@@ -17,9 +22,21 @@ export const handleInitialData = () => {
 };
 
 export const handleStarsVote = ({ cocktailId, ratingVal, votes, user }) => {
-  return (dispatch) => {
-    dispatch(handleEditCocktail({ id: cocktailId, rating: ratingVal, votes }));
-    dispatch(handleUserUpdate(user));
+  return (dispatch, getState) => {
+    const oldCocktailData = getState().cocktails[cocktailId];
+    const oldUserData = getState().users[user.id];
+
+    dispatch(updateUser(user));
     dispatch(authenticateUser(user));
+    dispatch(editCocktail({ id: cocktailId, rating: ratingVal, votes }));
+
+    Promise.all([_updateUser(user), _editCocktail(cocktailId)])
+      .then()
+      .catch((err) => {
+        alert('Error in handleStarsVote: ', err);
+        dispatch(updateUser(oldUserData));
+        dispatch(authenticateUser(oldUserData));
+        dispatch(editCocktail(oldCocktailData));
+      });
   };
 };

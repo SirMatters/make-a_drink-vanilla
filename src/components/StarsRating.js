@@ -14,7 +14,7 @@ const StarsRating = ({
 
   useEffect(() => {
     setRating(Math.floor(currentRating));
-  });
+  }, [currentRating]);
 
   const handleClick = (ratingVal) => {
     if (!disabled) {

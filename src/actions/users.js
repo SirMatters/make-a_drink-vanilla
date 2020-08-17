@@ -26,8 +26,9 @@ export const updateUser = (user) => ({
 });
 
 export const handleUserUpdate = (newData) => {
-  return (dispatch) => {
-    // TODO: consider API did not return positevely
+  return (dispatch, getState) => {
+    const oldData = getState().users[newData.id];
+    console.log('Old data', oldData);
     _updateUser(newData)
       .then(() => {
         dispatch(updateUser(newData));
@@ -35,6 +36,7 @@ export const handleUserUpdate = (newData) => {
       .catch((err) => {
         alert('Catched in handleUserUpdate()', err);
         console.log('Catched in handleUserUpdate()', err);
+        dispatch(updateUser(oldData));
       });
   };
 };
