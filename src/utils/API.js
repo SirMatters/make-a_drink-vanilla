@@ -23,7 +23,7 @@ let cocktails = {
       3: 'WR step 3',
     },
     ingredients: [],
-    comments: [],
+    comments: ['com1'],
     tags: [],
     description: 'White russian description',
     image:
@@ -267,13 +267,18 @@ const formatComment = ({ author, text, replyingTo = null, isFor }) => {
     text,
     timestamp: Date.now(),
     isFor,
+    edited: null,
   };
 };
 
 export const _getComments = (cocktailId) => {
-  // TODOL return only comments related to cocktailId
+  const returnObj = cocktails[cocktailId].comments.reduce((a, b) => {
+    a[b] = comments[b];
+    return a;
+  }, {});
+
   return new Promise((res, rej) => {
-    res(comments);
+    res({ comments: returnObj });
   }, RESP_TIMEOUT_MS);
 };
 

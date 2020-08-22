@@ -2,10 +2,15 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import StarsRating from './StarsRating';
-import { handleStarsVote } from '../actions/shared';
-import { handleAddCocktail } from '../actions/cocktails';
+import { handleStarsVote, handleAddComment } from '../actions/shared';
+import { handleReceiveComments } from '../actions/comments';
 import NewComment from './NewComment';
 class ViewCocktail extends React.Component {
+  componentDidMount() {
+    const { dispatch, id } = this.props;
+    dispatch(handleReceiveComments(id));
+  }
+
   onRating = (ratingVal) => {
     const { dispatch, cocktail, authedUser } = this.props;
     const { votes, rating, id } = cocktail;
@@ -45,13 +50,12 @@ class ViewCocktail extends React.Component {
   onNewComment = (text) => {
     const { dispatch, cocktail } = this.props;
     // handleAddCocktail gets authedUser within the action's handler
-    dispatch(handleAddCocktail({ text, isFor: cocktail.id }));
+    dispatch(handleAddComment({ text, isFor: cocktail.id }));
   };
 
   render() {
     const { cocktail, authedUser } = this.props;
     const vote = authedUser.votes[cocktail.id];
-    console.log(cocktail, 'vote', vote);
     const { steps } = cocktail;
     return (
       <Fragment>
@@ -88,18 +92,15 @@ class ViewCocktail extends React.Component {
   }
 }
 
-const mapStateToProps = ({ authedUser, cocktails, users }, props) => {
+const mapStateToProps = ({ authedUser, cocktails, users, comments }, props) => {
   const { id } = props.match.params;
   const cocktail = cocktails[id];
-  const { comments } = cocktail;
   return {
     authedUser,
     users,
     id,
     cocktail,
-    comments: !comments
-      ? []
-      : comments.sort((a, b) => comments[b].timestamp - comments[a].timestamp),
+    comments,
   };
 };
 export default connect(mapStateToProps)(ViewCocktail);

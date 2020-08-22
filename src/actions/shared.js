@@ -4,10 +4,12 @@ import {
   _getRatingVote,
   _updateUser,
   _editCocktail,
+  _addComment,
 } from '../utils/API';
 import { getCocktails, editCocktail } from './cocktails';
 import { handleUserAuthentication, authenticateUser } from './authedUser';
 import { getUsers, updateUser } from './users';
+import { addComment } from './comments';
 
 export const handleInitialData = () => {
   return (dispatch) => {
@@ -38,5 +40,26 @@ export const handleStarsVote = ({ cocktailId, ratingVal, votes, user }) => {
         dispatch(authenticateUser(oldUserData));
         dispatch(editCocktail(oldCocktailData));
       });
+  };
+};
+
+export const handleAddComment = ({ text, isFor, replyingTo }) => {
+  return (dispatch, getState) => {
+    const { authedUser, cocktails } = getState();
+
+    dispatch(showLoading);
+
+    return _addComment({ text, author: authedUser, replyingTo, isFor })
+      .then((comment) => {
+        dispatch(addComment(comment));
+        dispatch(
+          editCocktail({
+            ...cocktails[isFor],
+            comments: cocktails[isFor].comments.concat([comment.id]),
+          })
+        );
+        console.log(`Got comment in handleAddComment:, ${comment}`);
+      })
+      .then(() => dispatch(hideLoading));
   };
 };

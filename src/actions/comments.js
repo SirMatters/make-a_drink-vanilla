@@ -1,5 +1,4 @@
-import { showLoading, hideLoading } from 'react-redux-loading-bar';
-
+import { _getComments } from '../utils/API';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTs';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
@@ -11,25 +10,18 @@ const receiveComments = (comments) => ({
   comments,
 });
 
-const addComment = (comment) => ({
+export const handleReceiveComments = (cocktailId) => {
+  return (dispatch) => {
+    _getComments(cocktailId).then(({ comments }) => {
+      dispatch(receiveComments(comments));
+    });
+  };
+};
+
+export const addComment = (comment) => ({
   type: ADD_COMMENT,
   comment,
 });
-
-export const handleAddComment = ({ text, isFor, replyingTo }) => {
-  return (dispatch, getState) => {
-    const { authedUser } = getState();
-
-    dispatch(showLoading);
-
-    return addComment({ text, author: authedUser, replyingTo, isFor })
-      .then((comment) => {
-        dispatch(addComment(comment));
-        console.log(`Got comment in handleAddComment:, ${comment}`);
-      })
-      .then(() => dispatch(hideLoading));
-  };
-};
 
 const editComment = (comment) => ({
   type: EDIT_COMMENT,

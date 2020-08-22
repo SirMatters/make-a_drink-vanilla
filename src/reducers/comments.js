@@ -5,7 +5,7 @@ import {
   RECEIVE_COMMENTS,
 } from '../actions/comments';
 
-const comments = (state = {}, action) => {
+export const comments = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_COMMENTS:
       return { ...state, ...action.comments };
@@ -33,5 +33,3 @@ const comments = (state = {}, action) => {
       return state;
   }
 };
-
-export default comments;
