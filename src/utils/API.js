@@ -1,3 +1,14 @@
+/**
+ * SIMPLE API
+ * This is just a simple api to mimic app-server
+ * requests delay. By no means this should be
+ * considered as a part of the app
+ *
+ * API does not handle any logic - it receives
+ * save-ready data (except ids/timestamps).
+ * All the logics must be done by app
+ */
+
 let cocktails = {
   c1: {
     id: 'c1',
@@ -12,9 +23,9 @@ let cocktails = {
       3: 'WR step 3',
     },
     ingredients: [],
+    comments: [],
     tags: [],
     description: 'White russian description',
-    comments: [],
     image:
       'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
   },
@@ -31,9 +42,9 @@ let cocktails = {
       3: 'TS step 3',
     },
     ingredients: [],
+    comments: [],
     tags: [],
     description: 'Tequilla sunrise description',
-    comments: [],
     image:
       'https://tse3.mm.bing.net/th?id=OIP.16ojvtvUooNafhwvBRwL6gHaLH&pid=Api',
   },
@@ -50,9 +61,9 @@ let cocktails = {
       3: 'CL step 3',
     },
     ingredients: [],
+    comments: [],
     tags: [],
     description: 'Cuba libre description',
-    comments: [],
     image:
       'https://craftybartending.com/wp-content/uploads/2018/04/Cuba-Libre-cocktail.jpg',
   },
@@ -107,15 +118,17 @@ let users = {
 let comments = {
   com1: {
     id: 'com1',
+    text: 'Sample comment text. Lorem-blarem',
     author: 'u1',
     timestamp: Date.now(),
+    isFor: 'c1',
     edited: null,
-    text: 'Sample comment text. Lorem-blarem',
     likes: [],
-    parent: null,
-    cocktailId: 'c1',
+    replyingTo: null,
   },
 };
+
+const RESP_TIMEOUT_MS = 200;
 
 export const _getCocktails = () => {
   return new Promise((res, rej) => {
@@ -242,5 +255,53 @@ export const _getUserDataById = (userId) => {
         rej();
       }
     }, 200);
+  });
+};
+
+const formatComment = ({ author, text, replyingTo = null, isFor }) => {
+  return {
+    author,
+    id: generateID(),
+    likes: [],
+    replies: [],
+    text,
+    timestamp: Date.now(),
+    isFor,
+  };
+};
+
+export const _getComments = (cocktailId) => {
+  // TODOL return only comments related to cocktailId
+  return new Promise((res, rej) => {
+    res(comments);
+  }, RESP_TIMEOUT_MS);
+};
+
+export const _addComment = ({ text, author, replyingTo, isFor }) => {
+  return new Promise((res, rej) => {
+    const formattedComment = formatComment({
+      text,
+      author,
+      isFor,
+    });
+
+    setTimeout(() => {
+      comments = {
+        ...comments,
+        [formattedComment.id]: formattedComment,
+      };
+
+      if (replyingTo) {
+        comments = {
+          ...comments,
+          [replyingTo]: {
+            ...comments.replyingTo,
+            replies: comments.replyingTo.replies.concat([formattedComment.id]),
+          },
+        };
+      }
+
+      res(formattedComment);
+    }, RESP_TIMEOUT_MS);
   });
 };

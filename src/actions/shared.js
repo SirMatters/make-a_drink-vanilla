@@ -5,9 +5,9 @@ import {
   _updateUser,
   _editCocktail,
 } from '../utils/API';
-import { getCocktails, handleEditCocktail, editCocktail } from './cocktails';
+import { getCocktails, editCocktail } from './cocktails';
 import { handleUserAuthentication, authenticateUser } from './authedUser';
-import { handleUserUpdate, getUsers, updateUser } from './users';
+import { getUsers, updateUser } from './users';
 
 export const handleInitialData = () => {
   return (dispatch) => {
