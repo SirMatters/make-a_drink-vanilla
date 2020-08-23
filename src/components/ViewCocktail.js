@@ -5,6 +5,7 @@ import StarsRating from './StarsRating';
 import { handleStarsVote, handleAddComment } from '../actions/shared';
 import { handleReceiveComments } from '../actions/comments';
 import NewComment from './NewComment';
+import CommentsList from './CommentsList';
 class ViewCocktail extends React.Component {
   componentDidMount() {
     const { dispatch, id } = this.props;
@@ -87,11 +88,8 @@ class ViewCocktail extends React.Component {
           </div>
         </div>
         <NewComment onSubmit={this.onNewComment} />
-        <ul>
-          {Object.values(comments).map((c) => (
-            <li key={c.id}>{c.text}</li>
-          ))}
-        </ul>
+        <CommentsList comments={comments} />
+        <ul></ul>
       </Fragment>
     );
   }

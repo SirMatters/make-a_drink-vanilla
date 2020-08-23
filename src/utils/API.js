@@ -102,6 +102,7 @@ let users = {
     handle: '@kperov',
     firstName: 'Kirill',
     lastName: 'Perov',
+    avatar: 'https://pickaface.net/gallery/avatar/Benjohnsone54fbec7a167c5.png',
     votes: {
       c2: 5,
     },
@@ -111,6 +112,7 @@ let users = {
     handle: '@insoul',
     firstName: 'Evgenii',
     lastName: 'Belan',
+    avatar: 'https://www.seoclerk.com/pics/68213-2.jpg',
     votes: {},
   },
 };
