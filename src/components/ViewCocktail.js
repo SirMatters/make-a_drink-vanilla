@@ -95,12 +95,20 @@ class ViewCocktail extends React.Component {
 const mapStateToProps = ({ authedUser, cocktails, users, comments }, props) => {
   const { id } = props.match.params;
   const cocktail = cocktails[id];
+
+  const cocktailComments = cocktail.comments.reduce((a, b) => {
+    if (comments[b]) {
+      a[b] = comments[b];
+    }
+    return a;
+  }, {});
+
   return {
     authedUser,
     users,
     id,
     cocktail,
-    comments,
+    comments: cocktailComments,
   };
 };
 export default connect(mapStateToProps)(ViewCocktail);
