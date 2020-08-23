@@ -54,7 +54,7 @@ class ViewCocktail extends React.Component {
   };
 
   render() {
-    const { cocktail, authedUser } = this.props;
+    const { cocktail, authedUser, comments } = this.props;
     const vote = authedUser.votes[cocktail.id];
     const { steps } = cocktail;
     return (
@@ -87,6 +87,11 @@ class ViewCocktail extends React.Component {
           </div>
         </div>
         <NewComment onSubmit={this.onNewComment} />
+        <ul>
+          {Object.values(comments).map((c) => (
+            <li key={c.id}>{c.text}</li>
+          ))}
+        </ul>
       </Fragment>
     );
   }

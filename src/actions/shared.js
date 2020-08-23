@@ -49,7 +49,7 @@ export const handleAddComment = ({ text, isFor, replyingTo }) => {
 
     dispatch(showLoading);
 
-    return _addComment({ text, author: authedUser, replyingTo, isFor })
+    return _addComment({ text, author: authedUser.id, replyingTo, isFor })
       .then((comment) => {
         dispatch(addComment(comment));
         dispatch(
