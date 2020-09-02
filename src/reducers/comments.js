@@ -11,21 +11,10 @@ export const comments = (state = {}, action) => {
       return { ...state, ...action.comments };
     case ADD_COMMENT:
       const { comment } = action;
-      let replyingTo = {};
-
-      // if (comment.replyingTo && state[comment.replyingTo]) {
-      //   replyingTo = {
-      //     [replyingTo]: {
-      //       ...state[replyingTo],
-      //       replies: state[comment.replyingTo].replies.concat([replyingTo]),
-      //     },
-      //   };
-      // }
 
       return {
         ...state,
         [comment.id]: comment,
-        ...replyingTo,
       };
     case DELETE_COMMENT:
       let comments = { ...state };

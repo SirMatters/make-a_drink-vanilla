@@ -17,6 +17,7 @@ const CommentsList = ({ isFor, replyingTo = null }) => {
     }, []) || [];
   return (
     <div className='comments-list'>
+      {JSON.stringify(displayComments)}
       <ul>
         {displayComments.map((c) => (
           <li key={c.id}>

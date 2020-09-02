@@ -138,7 +138,7 @@ let comments = {
   com3: {
     id: 'com3',
     text: 'Sample comment text. Lorem-blarem',
-    author: 'u2',
+    author: 'u1',
     timestamp: Date.now(),
     isFor: 'c1',
     edited: null,
@@ -148,7 +148,7 @@ let comments = {
   com4: {
     id: 'com4',
     text: 'Sample comment text. Lorem-blarem',
-    author: 'u2',
+    author: 'u1',
     timestamp: Date.now(),
     isFor: 'c1',
     edited: null,
@@ -292,11 +292,11 @@ const formatComment = ({ author, text, replyingTo = null, isFor }) => {
     author,
     id: generateID(),
     likes: [],
-    replies: [],
     text,
     timestamp: Date.now(),
     isFor,
     edited: null,
+    replyingTo,
   };
 };
 
@@ -319,6 +319,7 @@ export const _addComment = ({ text, author, replyingTo, isFor }) => {
       text,
       author,
       isFor,
+      replyingTo,
     });
 
     setTimeout(() => {

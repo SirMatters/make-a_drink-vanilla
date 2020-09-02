@@ -48,12 +48,6 @@ class ViewCocktail extends React.Component {
     );
   };
 
-  onNewComment = (text) => {
-    const { dispatch, cocktail } = this.props;
-    // handleAddCocktail gets authedUser within the action's handler
-    dispatch(handleAddComment({ text, isFor: cocktail.id }));
-  };
-
   render() {
     const { cocktail, authedUser, comments } = this.props;
     const vote = authedUser.votes[cocktail.id];
@@ -87,7 +81,7 @@ class ViewCocktail extends React.Component {
             ))}
           </div>
         </div>
-        <NewComment onSubmit={this.onNewComment} />
+        <NewComment isFor={cocktail.id} />
         <CommentsList isFor={cocktail.id} />
         <ul></ul>
       </Fragment>

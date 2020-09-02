@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { handleAddComment } from '../actions/comments';
 
-const NewComment = ({ onSubmit }) => {
+const NewComment = ({ isFor, replyingTo = null }) => {
   const [text, setText] = useState('');
+  const dispatch = useDispatch();
 
   const onChange = (e) => {
     const { value } = e.target;
@@ -10,8 +13,8 @@ const NewComment = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(text);
     setText('');
+    dispatch(handleAddComment({ isFor, replyingTo, text }));
   };
 
   return (
