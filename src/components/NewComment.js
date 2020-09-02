@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { handleAddComment } from '../actions/comments';
 
-const NewComment = ({ isFor, replyingTo = null }) => {
+const NewComment = ({ isFor, replyingTo = null, clearSelected = () => {} }) => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
 
@@ -15,6 +15,7 @@ const NewComment = ({ isFor, replyingTo = null }) => {
     e.preventDefault();
     setText('');
     dispatch(handleAddComment({ isFor, replyingTo, text }));
+    clearSelected();
   };
 
   return (
