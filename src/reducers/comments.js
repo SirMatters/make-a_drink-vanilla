@@ -28,6 +28,9 @@ export const comments = (state = {}, action) => {
         ...replyingTo,
       };
     case DELETE_COMMENT:
+      let comments = { ...state };
+      delete comments[action.id];
+      return comments;
     case EDIT_COMMENT:
     default:
       return state;

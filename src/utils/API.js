@@ -298,17 +298,48 @@ export const _addComment = ({ text, author, replyingTo, isFor }) => {
         [formattedComment.id]: formattedComment,
       };
 
-      if (replyingTo) {
-        comments = {
-          ...comments,
-          [replyingTo]: {
-            ...comments.replyingTo,
-            replies: comments.replyingTo.replies.concat([formattedComment.id]),
-          },
-        };
-      }
+      //BUG: comment does not contain ids of its replies
+
+      // if (replyingTo) {
+      //   comments = {
+      //     ...comments,
+      //     [replyingTo]: {
+      //       ...comments.replyingTo,
+      //       replies: comments.replyingTo.replies.concat([formattedComment.id]),
+      //     },
+      //   };
+      // }
 
       res(formattedComment);
+    }, RESP_TIMEOUT_MS);
+  });
+};
+
+export const _deleteComment = (id) => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      // find all replies' ids
+      // delete all replies
+      // delete the comment
+
+      let comment = comments[id];
+      if (comment) {
+        let replies = Object.values(comments).reduce((a, b) => {
+          if (b.replyingTo === id) {
+            return a.concat(b.id);
+          }
+        }, []);
+
+        if (replies) {
+          for (let r of replies) {
+            delete comments[r];
+          }
+        }
+
+        delete comments[id];
+      }
+      delete comments[id];
+      res(true);
     }, RESP_TIMEOUT_MS);
   });
 };

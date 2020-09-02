@@ -1,4 +1,4 @@
-import { _getComments } from '../utils/API';
+import { _getComments, _deleteComment } from '../utils/API';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTs';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
@@ -32,6 +32,31 @@ const deleteComment = (id) => ({
   type: DELETE_COMMENT,
   id,
 });
+
+export const handleCommentDelete = (id) => {
+  return (dispatch, getState) => {
+    const comment = getState().comments[id];
+    const replies = Object.values(getState().comments).filter(
+      (c) => c.replyingTo === id
+    );
+
+    console.log('from handler:', comment, replies);
+
+    dispatch(deleteComment(id));
+    replies.forEach((r) => {
+      deleteComment(r.id);
+    });
+
+    _deleteComment(id)
+      .then()
+      .catch(() => {
+        dispatch(addComment(comment));
+        replies.forEach((r) => {
+          dispatch(addComment(r));
+        });
+      });
+  };
+};
 
 const toggleComment = ({ id, authedUser, hasLiked }) => ({
   type: TOGGLE_COMMENT,
