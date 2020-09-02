@@ -128,6 +128,16 @@ let comments = {
     likes: [],
     replyingTo: null,
   },
+  com2: {
+    id: 'com2',
+    text: 'Sample comment text. Lorem-blarem',
+    author: 'u2',
+    timestamp: Date.now(),
+    isFor: 'c1',
+    edited: null,
+    likes: [],
+    replyingTo: null,
+  },
 };
 
 const RESP_TIMEOUT_MS = 200;
@@ -274,8 +284,10 @@ const formatComment = ({ author, text, replyingTo = null, isFor }) => {
 };
 
 export const _getComments = (cocktailId) => {
-  const returnObj = cocktails[cocktailId].comments.reduce((a, b) => {
-    a[b] = comments[b];
+  const returnObj = Object.values(comments).reduce((a, b) => {
+    if (b.isFor === cocktailId) {
+      a[b.id] = b;
+    }
     return a;
   }, {});
 
@@ -297,18 +309,6 @@ export const _addComment = ({ text, author, replyingTo, isFor }) => {
         ...comments,
         [formattedComment.id]: formattedComment,
       };
-
-      //BUG: comment does not contain ids of its replies
-
-      // if (replyingTo) {
-      //   comments = {
-      //     ...comments,
-      //     [replyingTo]: {
-      //       ...comments.replyingTo,
-      //       replies: comments.replyingTo.replies.concat([formattedComment.id]),
-      //     },
-      //   };
-      // }
 
       res(formattedComment);
     }, RESP_TIMEOUT_MS);

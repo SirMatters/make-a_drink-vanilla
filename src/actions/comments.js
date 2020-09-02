@@ -40,8 +40,6 @@ export const handleCommentDelete = (id) => {
       (c) => c.replyingTo === id
     );
 
-    console.log('from handler:', comment, replies);
-
     dispatch(deleteComment(id));
     replies.forEach((r) => {
       deleteComment(r.id);

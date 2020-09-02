@@ -99,9 +99,9 @@ const mapStateToProps = ({ authedUser, cocktails, users, comments }, props) => {
   const { id } = props.match.params;
   const cocktail = cocktails[id];
 
-  const cocktailComments = cocktail.comments.reduce((a, b) => {
-    if (comments[b]) {
-      a[b] = comments[b];
+  const cocktailComments = Object.values(comments).reduce((a, b) => {
+    if (b.isFor === id) {
+      a[b.id] = b;
     }
     return a;
   }, {});
