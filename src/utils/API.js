@@ -145,6 +145,16 @@ let comments = {
     likes: [],
     replyingTo: 'com1',
   },
+  com4: {
+    id: 'com4',
+    text: 'Sample comment text. Lorem-blarem',
+    author: 'u2',
+    timestamp: Date.now(),
+    isFor: 'c1',
+    edited: null,
+    likes: [],
+    replyingTo: 'com3',
+  },
 };
 
 const RESP_TIMEOUT_MS = 200;

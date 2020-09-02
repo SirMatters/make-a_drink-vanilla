@@ -1,26 +1,26 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { handleCommentDelete } from '../actions/comments';
+import { useSelector } from 'react-redux';
+import Comment from './Comment';
 
-const CommentsList = (props) => {
-  const { comments } = props;
+const CommentsList = ({ isFor, replyingTo = null }) => {
   const authedUser = useSelector((state) => state.authedUser);
-  const dispatch = useDispatch();
-
-  const deleteComment = (id) => {
-    console.log('click on delete', id);
-    dispatch(handleCommentDelete(id));
-  };
-
+  const comments = useSelector((state) => {
+    //TODO: return only isFor and replyingTo comments
+    return state.comments;
+  });
+  const displayComments =
+    Object.values(comments).reduce((a, b) => {
+      if (b.replyingTo === replyingTo) {
+        a.push(b);
+      }
+      return a;
+    }, []) || [];
   return (
     <div className='comments-list'>
       <ul>
-        {Object.values(comments).map((c) => (
+        {displayComments.map((c) => (
           <li key={c.id}>
-            {c.text}
-            {c.author === authedUser.id && (
-              <span onClick={() => deleteComment(c.id)}> X</span>
-            )}
+            <Comment comment={c} authedUser={authedUser} />
           </li>
         ))}
       </ul>

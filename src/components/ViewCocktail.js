@@ -88,7 +88,7 @@ class ViewCocktail extends React.Component {
           </div>
         </div>
         <NewComment onSubmit={this.onNewComment} />
-        <CommentsList comments={comments} />
+        <CommentsList isFor={cocktail.id} />
         <ul></ul>
       </Fragment>
     );
