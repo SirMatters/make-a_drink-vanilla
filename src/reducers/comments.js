@@ -13,14 +13,14 @@ export const comments = (state = {}, action) => {
       const { comment } = action;
       let replyingTo = {};
 
-      if (comment.replyingTo && state[comment.replyingTo]) {
-        replyingTo = {
-          [replyingTo]: {
-            ...state[replyingTo],
-            replies: state[comment.replyingTo].replies.concat([replyingTo]),
-          },
-        };
-      }
+      // if (comment.replyingTo && state[comment.replyingTo]) {
+      //   replyingTo = {
+      //     [replyingTo]: {
+      //       ...state[replyingTo],
+      //       replies: state[comment.replyingTo].replies.concat([replyingTo]),
+      //     },
+      //   };
+      // }
 
       return {
         ...state,

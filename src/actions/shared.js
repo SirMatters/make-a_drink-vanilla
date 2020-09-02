@@ -42,24 +42,3 @@ export const handleStarsVote = ({ cocktailId, ratingVal, votes, user }) => {
       });
   };
 };
-
-export const handleAddComment = ({ text, isFor, replyingTo }) => {
-  return (dispatch, getState) => {
-    const { authedUser, cocktails } = getState();
-
-    dispatch(showLoading);
-
-    return _addComment({ text, author: authedUser.id, replyingTo, isFor })
-      .then((comment) => {
-        dispatch(addComment(comment));
-        dispatch(
-          editCocktail({
-            ...cocktails[isFor],
-            comments: cocktails[isFor].comments.concat([comment.id]),
-          })
-        );
-        console.log(`Got comment in handleAddComment:, ${comment}`);
-      })
-      .then(() => dispatch(hideLoading));
-  };
-};

@@ -1,4 +1,6 @@
-import { _getComments, _deleteComment } from '../utils/API';
+import { _getComments, _deleteComment, _addComment } from '../utils/API';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
+
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTs';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
@@ -42,7 +44,7 @@ export const handleCommentDelete = (id) => {
 
     dispatch(deleteComment(id));
     replies.forEach((r) => {
-      deleteComment(r.id);
+      dispatch(deleteComment(r.id));
     });
 
     _deleteComment(id)
@@ -60,3 +62,17 @@ const toggleComment = ({ id, authedUser, hasLiked }) => ({
   type: TOGGLE_COMMENT,
   id,
 });
+
+export const handleAddComment = ({ text, isFor, replyingTo }) => {
+  return (dispatch, getState) => {
+    const { authedUser } = getState();
+
+    dispatch(showLoading);
+
+    return _addComment({ text, author: authedUser.id, replyingTo, isFor })
+      .then((comment) => {
+        dispatch(addComment(comment));
+      })
+      .then(() => dispatch(hideLoading));
+  };
+};

@@ -23,7 +23,6 @@ let cocktails = {
       3: 'WR step 3',
     },
     ingredients: [],
-    comments: ['com1'],
     tags: [],
     description: 'White russian description',
     image:
@@ -42,7 +41,6 @@ let cocktails = {
       3: 'TS step 3',
     },
     ingredients: [],
-    comments: [],
     tags: [],
     description: 'Tequilla sunrise description',
     image:
@@ -61,7 +59,6 @@ let cocktails = {
       3: 'CL step 3',
     },
     ingredients: [],
-    comments: [],
     tags: [],
     description: 'Cuba libre description',
     image:
@@ -136,7 +133,17 @@ let comments = {
     isFor: 'c1',
     edited: null,
     likes: [],
-    replyingTo: null,
+    replyingTo: 'com1',
+  },
+  com3: {
+    id: 'com3',
+    text: 'Sample comment text. Lorem-blarem',
+    author: 'u2',
+    timestamp: Date.now(),
+    isFor: 'c1',
+    edited: null,
+    likes: [],
+    replyingTo: 'com1',
   },
 };
 
@@ -318,27 +325,6 @@ export const _addComment = ({ text, author, replyingTo, isFor }) => {
 export const _deleteComment = (id) => {
   return new Promise((res, rej) => {
     setTimeout(() => {
-      // find all replies' ids
-      // delete all replies
-      // delete the comment
-
-      let comment = comments[id];
-      if (comment) {
-        let replies = Object.values(comments).reduce((a, b) => {
-          if (b.replyingTo === id) {
-            return a.concat(b.id);
-          }
-        }, []);
-
-        if (replies) {
-          for (let r of replies) {
-            delete comments[r];
-          }
-        }
-
-        delete comments[id];
-      }
-      delete comments[id];
       res(true);
     }, RESP_TIMEOUT_MS);
   });

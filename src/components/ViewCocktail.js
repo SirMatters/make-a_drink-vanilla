@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import StarsRating from './StarsRating';
-import { handleStarsVote, handleAddComment } from '../actions/shared';
-import { handleReceiveComments } from '../actions/comments';
+import { handleStarsVote } from '../actions/shared';
+import { handleReceiveComments, handleAddComment } from '../actions/comments';
 import NewComment from './NewComment';
 import CommentsList from './CommentsList';
 class ViewCocktail extends React.Component {
