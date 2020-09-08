@@ -82,7 +82,7 @@ class ViewCocktail extends React.Component {
           </div>
         </div>
         <NewComment isFor={cocktail.id} />
-        <CommentsList isFor={cocktail.id} />
+        {comments && <CommentsList isFor={cocktail.id} />}
       </Fragment>
     );
   }

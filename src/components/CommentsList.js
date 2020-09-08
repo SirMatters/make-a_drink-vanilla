@@ -8,7 +8,13 @@ const CommentsList = ({ isFor, replyingTo = null }) => {
   const authedUser = useSelector((state) => state.authedUser);
   const comments = useSelector((state) => {
     //TODO: return only isFor and replyingTo comments
-    return state.comments;
+    let comments = Object.values(state.comments).reduce((a, b) => {
+      if (b.isFor === isFor) {
+        a[b.id] = b;
+      }
+      return a;
+    }, {});
+    return comments || {};
   });
 
   const handleReplySelect = (id) => {
