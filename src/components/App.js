@@ -22,8 +22,8 @@ class App extends React.Component {
           <LoadingBar />
           {this.props.authedUser ? (
             <div>
-              <Header />
               <div className='container'>
+                <Header />
                 <Switch>
                   <Route path='/' exact component={Dashboard} />
                   <Route path='/add' component={NewCocktail} />

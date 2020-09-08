@@ -340,3 +340,19 @@ export const _deleteComment = (id) => {
     }, RESP_TIMEOUT_MS);
   });
 };
+
+export const _editComment = (comment) => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      res({ ...comment, edited: Date.now() });
+    }, RESP_TIMEOUT_MS);
+  });
+};
+
+export const _toggleComment = () => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      res();
+    }, RESP_TIMEOUT_MS);
+  });
+};

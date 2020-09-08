@@ -1,8 +1,17 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { handleCommentDelete, handleCommentEdit } from '../actions/comments';
+import {
+  handleCommentDelete,
+  handleCommentEdit,
+  handleToggleComment,
+} from '../actions/comments';
 import CommentsList from './CommentsList';
 import NewComment from './NewComment';
+import {
+  TiArrowBackOutline,
+  TiHeartOutline,
+  TiHeartFullOutline,
+} from 'react-icons/ti/index';
 
 const Comment = ({ comment, authedUser, onSelect, isSelected }) => {
   const dispatch = useDispatch();
@@ -12,6 +21,12 @@ const Comment = ({ comment, authedUser, onSelect, isSelected }) => {
   useEffect(() => {
     setText(comment.text);
   }, [comment, authedUser, onSelect, isSelected]);
+
+  const hasLiked = comment.likes.includes(authedUser.id);
+
+  const handleLike = () => {
+    dispatch(handleToggleComment({ id: comment.id, authedUser, hasLiked }));
+  };
 
   const deleteComment = (id) => {
     console.log('click on delete', id);
@@ -73,6 +88,11 @@ const Comment = ({ comment, authedUser, onSelect, isSelected }) => {
           <div onClick={onEditClick}>Edit</div>
         )}
       </div>
+
+      <button onClick={handleLike}>
+        {comment.likes.length}
+        {hasLiked ? <TiHeartFullOutline color='#e0425e' /> : <TiHeartOutline />}
+      </button>
       {isSelected && (
         <NewComment
           isFor={comment.isFor}
