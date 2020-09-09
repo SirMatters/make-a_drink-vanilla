@@ -336,6 +336,7 @@ export const _addComment = ({ text, author, replyingTo, isFor }) => {
 export const _deleteComment = (id) => {
   return new Promise((res, rej) => {
     setTimeout(() => {
+      delete comments[id];
       res(true);
     }, RESP_TIMEOUT_MS);
   });
