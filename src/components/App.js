@@ -9,6 +9,7 @@ import LoadingBar from 'react-redux-loading-bar';
 import ViewCocktail from './ViewCocktail';
 import EditCocktail from './EditCocktail';
 import { handleUserAuthentication } from '../actions/authedUser';
+import FourOFour from './FourOFour';
 
 class App extends React.Component {
   componentDidMount() {
@@ -29,6 +30,7 @@ class App extends React.Component {
                   <Route path='/add' component={NewCocktail} />
                   <Route path='/cocktails/:id/edit' component={EditCocktail} />
                   <Route path='/cocktails/:id' component={ViewCocktail} />
+                  <Route component={FourOFour} />
                 </Switch>
               </div>
             </div>

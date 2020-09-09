@@ -6,6 +6,7 @@ import { handleStarsVote } from '../actions/shared';
 import { handleReceiveComments, handleAddComment } from '../actions/comments';
 import NewComment from './NewComment';
 import CommentsList from './CommentsList';
+import { Redirect } from 'react-router-dom';
 class ViewCocktail extends React.Component {
   componentDidMount() {
     const { dispatch, id } = this.props;
@@ -50,6 +51,11 @@ class ViewCocktail extends React.Component {
 
   render() {
     const { cocktail, authedUser, comments } = this.props;
+
+    if (!cocktail) {
+      return <Redirect to='/not_found' />;
+    }
+
     const vote = authedUser.votes[cocktail.id];
     const { steps } = cocktail;
     return (
