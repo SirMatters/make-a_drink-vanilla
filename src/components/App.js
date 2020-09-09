@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Dashboard from './Dashboard';
 import NewCocktail from './NewCocktail';
-import Header from './Header';
+import Nav from './Nav';
 import { handleInitialData } from '../actions/shared';
 import LoadingBar from 'react-redux-loading-bar';
 import ViewCocktail from './ViewCocktail';
@@ -23,7 +23,7 @@ class App extends React.Component {
           {this.props.authedUser ? (
             <div>
               <div className='container'>
-                <Header />
+                <Nav />
                 <Switch>
                   <Route path='/' exact component={Dashboard} />
                   <Route path='/add' component={NewCocktail} />
