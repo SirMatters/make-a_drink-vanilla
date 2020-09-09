@@ -1,6 +1,46 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const SearchStyles = styled.div`
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px 1px rgba(0, 0, 0, 0.18);
+  color: rgba(0, 0, 0, 0.73);
+
+  input {
+    width: 100%;
+    border: none;
+    color: rgba(0, 0, 0, 0.73);
+    padding: 10px 15px;
+    box-sizing: border-box;
+    outline: none;
+  }
+
+  ul {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px 1px rgba(0, 0, 0, 0.18);
+    position: absolute;
+    list-style: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: white;
+    border-top: 1px solid grey;
+  }
+
+  a {
+    padding: 10px 15px;
+    cursor: pointer;
+    display: block;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
 
 class AutocompleteSearch extends React.Component {
   state = {
@@ -45,7 +85,7 @@ class AutocompleteSearch extends React.Component {
     const displaySuggestions = this.state.suggestions;
 
     return (
-      <div className='autocomplete-search'>
+      <SearchStyles>
         <input
           value={this.state.input}
           onChange={this.handleInput}
@@ -65,7 +105,7 @@ class AutocompleteSearch extends React.Component {
             ))}
           </ul>
         ) : null}
-      </div>
+      </SearchStyles>
     );
   }
 }
