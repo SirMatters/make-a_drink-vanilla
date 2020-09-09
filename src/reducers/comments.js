@@ -12,7 +12,6 @@ export const comments = (state = {}, action) => {
       return { ...state, ...action.comments };
     case ADD_COMMENT:
       const { comment } = action;
-
       return {
         ...state,
         [comment.id]: comment,
@@ -24,7 +23,10 @@ export const comments = (state = {}, action) => {
     case EDIT_COMMENT:
       return { ...state, [action.comment.id]: action.comment };
     case TOGGLE_COMMENT:
-      console.log(action.hasLiked, action.authedUser);
+      console.log(`
+        hasLiked: ${action.hasLiked}
+        likes: ${JSON.stringify(state[action.id])}
+      `);
       return {
         ...state,
         [action.id]: {

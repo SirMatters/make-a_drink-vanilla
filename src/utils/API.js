@@ -349,9 +349,15 @@ export const _editComment = (comment) => {
   });
 };
 
-export const _toggleComment = () => {
+export const _toggleComment = (id, user) => {
   return new Promise((res, rej) => {
     setTimeout(() => {
+      const hasLiked = comments[id].likes.includes(user.id);
+      if (hasLiked) {
+        comments[id].likes = comments[id].likes.filter((u) => u !== user.id);
+      } else {
+        comments[id].likes = [...comments[id].likes, user.id];
+      }
       res();
     }, RESP_TIMEOUT_MS);
   });

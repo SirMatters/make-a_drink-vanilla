@@ -86,13 +86,12 @@ const toggleComment = ({ id, authedUser, hasLiked }) => ({
 
 export const handleToggleComment = ({ id, authedUser, hasLiked }) => {
   return (dispatch) => {
-    // if authed user in comment.likes -> delete from arr
-    // if authed user is not in comment.likes -> add user there
-    _toggleComment()
-      .then(() => {
-        dispatch(toggleComment({ id, authedUser, hasLiked }));
-      })
-      .catch();
+    dispatch(toggleComment({ id, authedUser, hasLiked }));
+    _toggleComment(id, authedUser).catch((err) => {
+      console.warn(err);
+      dispatch(toggleComment({ id, authedUser, hasLiked }));
+      alert('Sorry, try it later');
+    });
   };
 };
 
