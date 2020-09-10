@@ -10,7 +10,12 @@ import middleware from './middleware';
 
 import './index.css';
 
-const theme = {};
+const theme = {
+  link: {
+    grey: '#afafaf',
+    blue: '#55BAF2',
+  },
+};
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -24,7 +29,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: sans-serif;
     padding: 0;
     margin: 0;
-    line-height: 2;
   }
   a {
     text-decoration: none;

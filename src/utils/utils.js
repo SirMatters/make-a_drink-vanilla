@@ -1,3 +1,5 @@
+import { format } from 'timeago.js';
+
 export const sortObjectsArr = (arr, field) => {
   let sortedArr = [...arr].sort((a, b) => {
     return a[field] < b[field];
@@ -16,4 +18,16 @@ export const removeNumberedObjectItem = (obj, i) => {
     iter++;
   }
   return res;
+};
+
+export const timestampToDate = (timestamp) => {
+  const date = new Date(timestamp);
+  const timeStr = `${date.getHours()}:${date.getMinutes()} ${date.getDate()}-${
+    date.getMonth() + 1
+  }-${date.getFullYear()}`;
+  return timeStr;
+};
+
+export const timestampToHumanString = (timestamp) => {
+  return format(timestamp);
 };

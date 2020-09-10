@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   handleCommentDelete,
   handleCommentEdit,
@@ -9,11 +9,91 @@ import CommentsList from './CommentsList';
 import NewComment from './NewComment';
 import styled from 'styled-components';
 import LikeButton from './LikeButton';
+import { timestampToDate, timestampToHumanString } from '../utils/utils.js';
 
-const CommentStyles = styled.div``;
+const CommentStyles = styled.div`
+  font-size: 1.2rem;
+  position: relative;
+  padding: 1rem;
+  display: flex;
+  align-items: flex-start;
+
+  .author-avatar {
+    height: 4rem;
+    width: 4rem;
+    position: relative;
+
+    border-radius: 2rem;
+    overflow: hidden;
+    /* border: 0.4rem solid black; */
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-height: 100%;
+    }
+  }
+
+  .comment-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 0.5rem;
+
+    .comment-info {
+      display: flex;
+      justify-content: left;
+
+      .comment-author {
+        margin-right: 0.5rem;
+        color: ${(props) => props.theme.link.blue};
+      }
+
+      .comment-created {
+        color: ${(props) => props.theme.link.grey};
+      }
+
+      .comment-edited {
+        margin-left: auto;
+        color: ${(props) => props.theme.link.grey};
+      }
+    }
+
+    .comment-text {
+      margin: 0.5rem 0;
+    }
+    .comment-buttons {
+      display: flex;
+      justify-content: left;
+      max-width: 20rem;
+
+      .comment-like {
+        margin-left: auto;
+      }
+
+      button {
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+        margin-right: 0.5rem;
+        padding: 0;
+
+        color: ${(props) => props.theme.link.grey};
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+`;
 
 const Comment = ({ comment, authedUser, onSelect, isSelected }) => {
   const dispatch = useDispatch();
+  const authorData = useSelector((state) => state.users[comment.author]);
   const [isEditing, setEditing] = useState(false);
   const [text, setText] = useState('');
 
@@ -58,37 +138,71 @@ const Comment = ({ comment, authedUser, onSelect, isSelected }) => {
 
   return (
     <Fragment>
-      <div className={'comment'}>
-        {isEditing ? (
-          <form onSubmit={handleSubmit}>
-            <textarea
-              name='text'
-              value={text}
-              onChange={(e) => onCommentEdit(e)}
-              onKeyDown={(e) => handleKeyDown(e)}
-            />
-            <button>Submit</button>
-          </form>
-        ) : (
-          comment.text
-        )}
-        <button
-          onClick={() => {
-            onReplySelect(comment.id);
-          }}
-        >
-          Reply
-        </button>
-        <button onClick={onEditClick}>Edit</button>
-        {comment.author === authedUser.id && (
-          <button onClick={() => deleteComment(comment.id)}>Delete</button>
-        )}
-        <LikeButton
-          handleLike={handleLike}
-          isActive={hasLiked}
-          likesNum={comment.likes.length}
-        />
-      </div>
+      <CommentStyles className='comment'>
+        <div className='author-avatar'>
+          <img src={authorData.avatar} />
+        </div>
+        <div className='comment-details'>
+          <div className='comment-info'>
+            <span className='comment-author'>{authorData.handle}</span>
+            <span className='comment-created'>
+              {timestampToHumanString(comment.timestamp)}
+            </span>
+            {comment.edited && (
+              <span className='comment-edited'>
+                edited {timestampToDate(comment.edited)}
+              </span>
+            )}
+          </div>
+          <div className='comment-text'>
+            {isEditing ? (
+              <form onSubmit={handleSubmit}>
+                <textarea
+                  name='text'
+                  value={text}
+                  onChange={(e) => onCommentEdit(e)}
+                  onKeyDown={(e) => handleKeyDown(e)}
+                />
+                <button>Submit</button>
+              </form>
+            ) : (
+              <span>{comment.text}</span>
+            )}
+          </div>
+          <div className='comment-buttons'>
+            <button
+              className='comment-reply'
+              onClick={() => {
+                onReplySelect(comment.id);
+              }}
+            >
+              Reply
+            </button>
+            {comment.author === authedUser.id && (
+              <Fragment>
+                <button className='comment-edit' onClick={onEditClick}>
+                  Edit
+                </button>
+                <button
+                  className='comment-delete'
+                  onClick={() => deleteComment(comment.id)}
+                >
+                  Delete
+                </button>
+              </Fragment>
+            )}
+
+            <span className='comment-like'>
+              <LikeButton
+                handleLike={handleLike}
+                isActive={hasLiked}
+                likesNum={comment.likes.length}
+                size='1.2rem'
+              />
+            </span>
+          </div>
+        </div>
+      </CommentStyles>
 
       {isSelected && (
         <NewComment
