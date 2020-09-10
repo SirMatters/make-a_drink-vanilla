@@ -129,7 +129,10 @@ class NewCocktail extends React.Component {
           {this.state.newCocktail.image === '' ? (
             <ImageUpload onImageSelect={this.onImageSelect} />
           ) : (
-            <ImageDisplay image={this.state.newCocktail.image} />
+            <ImageDisplay
+              onImageSelect={this.onImageSelect}
+              image={this.state.newCocktail.image}
+            />
           )}
 
           <textarea

@@ -7,11 +7,10 @@ import {
 } from '../actions/comments';
 import CommentsList from './CommentsList';
 import NewComment from './NewComment';
-import {
-  TiArrowBackOutline,
-  TiHeartOutline,
-  TiHeartFullOutline,
-} from 'react-icons/ti/index';
+import styled from 'styled-components';
+import LikeButton from './LikeButton';
+
+const CommentStyles = styled.div``;
 
 const Comment = ({ comment, authedUser, onSelect, isSelected }) => {
   const dispatch = useDispatch();
@@ -73,26 +72,24 @@ const Comment = ({ comment, authedUser, onSelect, isSelected }) => {
         ) : (
           comment.text
         )}
+        <button
+          onClick={() => {
+            onReplySelect(comment.id);
+          }}
+        >
+          Reply
+        </button>
+        <button onClick={onEditClick}>Edit</button>
         {comment.author === authedUser.id && (
-          <span onClick={() => deleteComment(comment.id)}> X</span>
+          <button onClick={() => deleteComment(comment.id)}>Delete</button>
         )}
-        {comment.author !== authedUser.id ? (
-          <div
-            onClick={() => {
-              onReplySelect(comment.id);
-            }}
-          >
-            Reply
-          </div>
-        ) : (
-          <div onClick={onEditClick}>Edit</div>
-        )}
+        <LikeButton
+          handleLike={handleLike}
+          isActive={hasLiked}
+          likesNum={comment.likes.length}
+        />
       </div>
 
-      <button onClick={handleLike}>
-        {comment.likes.length}
-        {hasLiked ? <TiHeartFullOutline color='#e0425e' /> : <TiHeartOutline />}
-      </button>
       {isSelected && (
         <NewComment
           isFor={comment.isFor}
