@@ -6,25 +6,40 @@ const UploadStyle = styled.div`
   input {
     display: none;
   }
+`;
 
-  .image-display {
-    position: relative;
+const DisplayStyle = styled.div`
+  position: relative;
 
-    label {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+  label {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
-    img {
-      border: 2px dashed grey;
-      margin: 1rem;
-      padding: 1rem;
-    }
+  img {
+    border: 2px dashed grey;
+    margin: 1rem;
+    padding: 1rem;
   }
 `;
 
-const ImageUpload = (props) => {
+export const ImageDisplay = (props) => {
+  const removeImage = () => {
+    props.onImageSelect('');
+  };
+
+  return (
+    <DisplayStyle>
+      <label for='cocktail-image'>
+        <FaTimesCircle size='1.5rem' onClick={removeImage} />
+      </label>
+      <img id='cocktail-image' src={props.image} />
+    </DisplayStyle>
+  );
+};
+
+export const ImageUpload = (props) => {
   const onChange = (e) => {
     const file = [...e.target.files][0];
     let reader = new FileReader();
@@ -34,35 +49,17 @@ const ImageUpload = (props) => {
     };
   };
 
-  const removeImage = () => {
-    props.onImageSelect('');
-  };
-
   return (
     <UploadStyle>
-      {props.image === '' && (
-        <div>
-          <label for='fileUpload'>
-            <FaImage size='10rem' />
-          </label>
-          <input
-            type='file'
-            name='cocktail-image'
-            id='fileUpload'
-            onChange={onChange}
-          />
-        </div>
-      )}
-      {props.image !== '' && (
-        <div className='image-display'>
-          <label for='cocktail-image'>
-            <FaTimesCircle size='1.5rem' onClick={removeImage} />
-          </label>
-          <img id='cocktail-image' src={props.image} />
-        </div>
-      )}
+      <label htmlFor='fileUpload'>
+        <FaImage size='10rem' />
+      </label>
+      <input
+        type='file'
+        name='cocktail-image'
+        id='fileUpload'
+        onChange={onChange}
+      />
     </UploadStyle>
   );
 };
-
-export default ImageUpload;

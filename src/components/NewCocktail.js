@@ -6,7 +6,7 @@ import {
   handleEditCocktail,
 } from '../actions/cocktails';
 import { removeNumberedObjectItem } from '../utils/utils';
-import ImageUpload from './ImageUpload';
+import { ImageUpload, ImageDisplay } from './ImageUpload';
 
 class NewCocktail extends React.Component {
   state = {
@@ -126,10 +126,12 @@ class NewCocktail extends React.Component {
             name='name'
             placeholder='Be creative...'
           />
-          <ImageUpload
-            onImageSelect={this.onImageSelect}
-            image={this.state.newCocktail.image}
-          />
+          {this.state.newCocktail.image === '' ? (
+            <ImageUpload onImageSelect={this.onImageSelect} />
+          ) : (
+            <ImageDisplay image={this.state.newCocktail.image} />
+          )}
+
           <textarea
             className='new-cocktail__description'
             name='description'
