@@ -16,6 +16,7 @@ const theme = {
     blue: '#55BAF2',
   },
   backgroundColor: '#f4f4f4',
+  cloudColor: '#fafafa',
 };
 
 const GlobalStyle = createGlobalStyle`
@@ -35,11 +36,16 @@ const GlobalStyle = createGlobalStyle`
     margin: inherit;
     font-family: sans-serif;
     height: 100%;
-    background-color: #f4f4f4;
+    background-color: ${(props) => props.theme.backgroundColor};
 
   }
   a {
     text-decoration: none;
+  }
+
+  .div-cloud {
+    background-color: ${(props) => props.theme.cloudColor};
+    padding: 1rem;
   }
 `;
 

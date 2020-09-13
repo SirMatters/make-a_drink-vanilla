@@ -3,10 +3,60 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import StarsRating from './StarsRating';
 import { handleStarsVote } from '../actions/shared';
-import { handleReceiveComments, handleAddComment } from '../actions/comments';
+import { handleReceiveComments } from '../actions/comments';
 import NewComment from './NewComment';
 import CommentsList from './CommentsList';
 import { Redirect } from 'react-router-dom';
+import styled from 'styled-components';
+
+const ViewStyles = styled.div`
+  max-width: 100%;
+  display: grid;
+
+  grid-template-columns: minmax(450px, 1fr) minmax(100px, 1fr) minmax(
+      100px,
+      1fr
+    );
+  grid-template-rows:
+    3rem 3rem minmax(min-content, max-content)
+    minmax(min-content, max-content);
+  grid-template-areas:
+    'img title controls'
+    'img rating rating'
+    'img description description'
+    'img steps steps';
+  grid-column-gap: 2rem;
+
+  & h2 {
+    margin-top: 0;
+  }
+  .cocktail-img {
+    max-width: 100%;
+    grid-area: img;
+  }
+
+  .cocktail-title {
+    grid-area: title;
+    margin: 0;
+  }
+
+  .cocktail-controls {
+    grid-area: controls;
+  }
+
+  .cocktail-rating {
+    grid-area: rating;
+  }
+
+  .cocktail-description {
+    grid-area: description;
+  }
+
+  .steps-container {
+    grid-area: steps;
+  }
+`;
+
 class ViewCocktail extends React.Component {
   componentDidMount() {
     const { dispatch, id } = this.props;
@@ -60,33 +110,42 @@ class ViewCocktail extends React.Component {
     const { steps } = cocktail;
     return (
       <Fragment>
-        <div className='cocktail'>
-          <Link to={`/cocktails/${cocktail.id}/edit`}>Edit</Link>
-          <div className='cocktail__name'>{cocktail.name}</div>
-          {/*TODO: provide default image*/}
-          {cocktail.image ? (
-            <img
-              className='cocktail__img'
-              src={cocktail.image}
-              alt={`cocktail-${cocktail.id}-img`}
-            />
-          ) : null}
+        <ViewStyles className='cocktail'>
+          <img
+            className='cocktail-img'
+            src={cocktail.image}
+            alt={`cocktail-${cocktail.id}-img`}
+          />
+          <h1 className='cocktail-title div-cloud'>{cocktail.name}</h1>
+          <Link
+            className='cocktail-controls'
+            to={`/cocktails/${cocktail.id}/edit`}
+          >
+            Edit
+          </Link>
           <StarsRating
             currentRating={vote ? vote : 0}
             votesNum={cocktail.votes}
             onChange={this.onRating}
             totalRating={cocktail.rating}
           />
-          <div className='cocktail__description'>{cocktail.description}</div>
-          <div className='cocktail__steps-container'>
-            {Object.keys(steps).map((s) => (
-              <li className='cocktail__step' key={`step-${s}`}>
-                <span className='step__number'>{s}</span>
-                <div>{steps[s]}</div>
-              </li>
-            ))}
+          <div className='cocktail-description'>
+            <h2>About</h2>
+            <div className='div-cloud'>{cocktail.description}</div>
           </div>
-        </div>
+          <div className='steps-container'>
+            <h2>Preparation</h2>
+            <ul>
+              {Object.keys(steps).map((s) => (
+                <li className='cocktail__step div-cloud' key={`step-${s}`}>
+                  <span className='step__number'>{s}</span>
+                  <div>{steps[s]}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </ViewStyles>
+        <h2>Comments</h2>
         <NewComment isFor={cocktail.id} />
         {comments && <CommentsList isFor={cocktail.id} />}
       </Fragment>

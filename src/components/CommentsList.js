@@ -4,7 +4,7 @@ import Comment from './Comment';
 import styled from 'styled-components';
 
 const CommentListStyles = styled.div`
-  background-color: #ffffff;
+  background-color: ${(props) => props.theme.cloudColor};
 
   ul {
     padding-left: 2rem;
@@ -33,13 +33,15 @@ const CommentsList = ({ isFor, replyingTo = null }) => {
     setSelected(id);
   };
 
-  const displayComments =
+  const displayComments = (
     Object.values(comments).reduce((a, b) => {
       if (b.replyingTo === replyingTo) {
         a.push(b);
       }
       return a;
-    }, []) || [];
+    }, []) || []
+  ).sort((a, b) => a.timestamp - b.timestamp);
+  console.log('comments', displayComments);
   return (
     <CommentListStyles>
       <ul>

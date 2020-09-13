@@ -24,7 +24,8 @@ let cocktails = {
     },
     ingredients: [],
     tags: [],
-    description: 'White russian description',
+    description:
+      'A White Russian (Russian language: Белый Русский) is a cocktail made with vodka, coffee liqueur (e.g., Kahlúa or Tia Maria) and cream served with ice in an Old Fashioned glass. Often milk or half and half will be used as an alternative to cream. ',
     image:
       'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
   },
