@@ -12,6 +12,7 @@ import styled from 'styled-components';
 const ViewStyles = styled.div`
   max-width: 100%;
   display: grid;
+  max-height: 500px;
 
   grid-template-columns: minmax(450px, 1fr) minmax(100px, 1fr) minmax(
       100px,
@@ -33,6 +34,8 @@ const ViewStyles = styled.div`
   .cocktail-img {
     max-width: 100%;
     grid-area: img;
+    max-height: 500px;
+    justify-self: center;
   }
 
   .cocktail-title {
