@@ -8,8 +8,17 @@ import { handleInitialData } from '../actions/shared';
 import LoadingBar from 'react-redux-loading-bar';
 import ViewCocktail from './ViewCocktail';
 import EditCocktail from './EditCocktail';
-import { handleUserAuthentication } from '../actions/authedUser';
 import FourOFour from './FourOFour';
+import styled from 'styled-components';
+
+const AppStyles = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  .container {
+    max-width: 1020px;
+  }
+`;
 
 class App extends React.Component {
   componentDidMount() {
@@ -22,9 +31,9 @@ class App extends React.Component {
         <Fragment>
           <LoadingBar />
           {this.props.authedUser ? (
-            <div>
+            <AppStyles>
+              <Nav />
               <div className='container'>
-                <Nav />
                 <Switch>
                   <Route path='/' exact component={Dashboard} />
                   <Route path='/add' component={NewCocktail} />
@@ -33,7 +42,7 @@ class App extends React.Component {
                   <Route component={FourOFour} />
                 </Switch>
               </div>
-            </div>
+            </AppStyles>
           ) : // TODO: provide login page
           null}
         </Fragment>

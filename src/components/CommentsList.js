@@ -4,6 +4,8 @@ import Comment from './Comment';
 import styled from 'styled-components';
 
 const CommentListStyles = styled.div`
+  background-color: #ffffff;
+
   ul {
     padding-left: 2rem;
   }

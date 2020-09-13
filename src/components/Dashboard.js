@@ -2,6 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CocktailCard from './CocktailCard';
 import { sortObjectsArr } from '../utils/utils';
+import styled from 'styled-components';
+
+const DashboardStyles = styled.div`
+  max-width: 100%;
+
+  .card-container {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+`;
 
 class Dashboard extends React.Component {
   state = {
@@ -25,7 +36,7 @@ class Dashboard extends React.Component {
     cocktailsDisplay = sortObjectsArr(cocktailsDisplay, this.state.sortOption);
 
     return (
-      <div className='dashboard'>
+      <DashboardStyles>
         <select onChange={this.onSelect} value={this.state.sortOption}>
           <option value='raiting'>By raiting</option>
           <option value='name'>By name</option>
@@ -38,7 +49,7 @@ class Dashboard extends React.Component {
             </li>
           ))}
         </div>
-      </div>
+      </DashboardStyles>
     );
   }
 }

@@ -17,6 +17,7 @@ const CommentStyles = styled.div`
   padding: 1rem;
   display: flex;
   align-items: flex-start;
+  background-color: #ffffff;
 
   .author-avatar {
     height: 4rem;

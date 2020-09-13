@@ -15,20 +15,28 @@ const theme = {
     grey: '#afafaf',
     blue: '#55BAF2',
   },
+  backgroundColor: '#f4f4f4',
 };
 
 const GlobalStyle = createGlobalStyle`
   html {
     box-sizing: border-box;
     font-size: 10px;
+    padding: 0;
+    margin: 0;
+    height: 100%
   }
   *, *:before, *:after {
     box-sizing: inherit;
   }
   body {
+    font-size: 1.2rem;
+    padding: inherit;
+    margin: inherit;
     font-family: sans-serif;
-    padding: 0;
-    margin: 0;
+    height: 100%;
+    background-color: #f4f4f4;
+
   }
   a {
     text-decoration: none;
