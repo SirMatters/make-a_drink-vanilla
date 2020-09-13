@@ -58,7 +58,7 @@ const CommentStyles = styled.div`
       }
 
       .comment-edited {
-        margin-left: 0.5em;
+        margin-left: 0.5rem;
         color: ${(props) => props.theme.link.grey};
       }
     }

@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Comment from './Comment';
+import styled from 'styled-components';
+
+const CommentListStyles = styled.div`
+  ul {
+    padding-left: 2rem;
+  }
+  li {
+    list-style: none;
+  }
+`;
 
 const CommentsList = ({ isFor, replyingTo = null }) => {
   const [selected, setSelected] = useState(null);
@@ -29,7 +39,7 @@ const CommentsList = ({ isFor, replyingTo = null }) => {
       return a;
     }, []) || [];
   return (
-    <div className='comments-list'>
+    <CommentListStyles>
       <ul>
         {displayComments.map((c) => (
           <li key={c.id}>
@@ -42,7 +52,7 @@ const CommentsList = ({ isFor, replyingTo = null }) => {
           </li>
         ))}
       </ul>
-    </div>
+    </CommentListStyles>
   );
 };
 
