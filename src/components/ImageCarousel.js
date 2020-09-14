@@ -58,8 +58,10 @@ const CarouselStyles = styled.div`
       padding: 0;
       margin: 0;
 
+      .selected {
+        border: 2px solid green;
+      }
       li {
-        border: 1px solid black;
         img {
           max-width: 10rem;
         }
@@ -96,6 +98,7 @@ const ImageCarousel = (props) => {
         <ul>
           {Object.values(props.images).map((i) => (
             <li
+              className={show === i.count ? 'selected' : null}
               key={`img-prev-${i.count}`}
               onClick={() => handlePreviewClick(i)}
             >
