@@ -8,19 +8,16 @@ import NewComment from './NewComment';
 import CommentsList from './CommentsList';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import ImageCarousel from './ImageCarousel';
 
 const ViewStyles = styled.div`
   max-width: 100%;
   display: grid;
-  max-height: 500px;
+  max-height: 45rem;
+  overflow: hidden;
 
-  grid-template-columns: minmax(450px, 1fr) minmax(100px, 1fr) minmax(
-      100px,
-      1fr
-    );
-  grid-template-rows:
-    3rem 3rem minmax(min-content, max-content)
-    minmax(min-content, max-content);
+  grid-template-columns: minmax(35rem, 50rem) minmax(10rem, 1fr) 1fr;
+  grid-template-rows: 3rem 3rem 10rem 1fr;
   grid-template-areas:
     'img title controls'
     'img rating rating'
@@ -34,7 +31,7 @@ const ViewStyles = styled.div`
   .cocktail-img {
     max-width: 100%;
     grid-area: img;
-    max-height: 500px;
+    max-height: 100%;
     justify-self: center;
   }
 
@@ -57,6 +54,8 @@ const ViewStyles = styled.div`
 
   .steps-container {
     grid-area: steps;
+    max-height: 100%;
+    overflow-y: auto;
   }
 `;
 
@@ -70,7 +69,7 @@ class ViewCocktail extends React.Component {
     const { dispatch, cocktail, authedUser } = this.props;
     const { votes, rating, id } = cocktail;
 
-    // TODO: should all calc be done by an API?
+    // FIXME: rating val and calculation should be done by API!
 
     let newRating = 0;
     let newVotesNum = votes;
@@ -114,11 +113,14 @@ class ViewCocktail extends React.Component {
     return (
       <Fragment>
         <ViewStyles className='cocktail'>
-          <img
+          {/* <img
             className='cocktail-img'
             src={cocktail.image}
             alt={`cocktail-${cocktail.id}-img`}
-          />
+          /> */}
+          <div className='cocktail-img'>
+            <ImageCarousel />
+          </div>
           <h1 className='cocktail-title div-cloud'>{cocktail.name}</h1>
           <Link
             className='cocktail-controls'
