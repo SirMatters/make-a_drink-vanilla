@@ -89,7 +89,8 @@ const ImageCarousel = (props) => {
   const [show, setShow] = useState(0);
 
   const handlePreviewClick = (i) => {
-    setShow(i.count);
+    console.log('image', i);
+    setShow(i.id);
   };
 
   return (
@@ -98,8 +99,8 @@ const ImageCarousel = (props) => {
         <ul>
           {Object.values(props.images).map((i) => (
             <li
-              className={show === i.count ? 'selected' : null}
-              key={`img-prev-${i.count}`}
+              className={show === i.id ? 'selected' : null}
+              key={`img-prev-${i.id}`}
               onClick={() => handlePreviewClick(i)}
             >
               <img src={i.imgUrls.large} />

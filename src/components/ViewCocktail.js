@@ -101,8 +101,20 @@ class ViewCocktail extends React.Component {
     );
   };
 
+  buildAdditionalImagesObj = (cocktail) => {
+    let obj = Object.values(cocktail.steps).reduce((a, b) => {
+      a[b.id] = { id: b.id, imgUrls: { large: b.img } };
+      return a;
+    }, {});
+    return obj;
+  };
+
   render() {
     const { cocktail, authedUser, comments } = this.props;
+    let cocktailImages = {
+      0: { id: 0, imgUrls: { large: cocktail.image } },
+      ...this.buildAdditionalImagesObj(cocktail),
+    };
 
     if (!cocktail) {
       return <Redirect to='/not_found' />;
@@ -114,7 +126,7 @@ class ViewCocktail extends React.Component {
       <Fragment>
         <ViewStyles className='cocktail'>
           <div className='cocktail-img'>
-            <ImageCarousel />
+            <ImageCarousel images={cocktailImages} />
           </div>
           <h1 className='cocktail-title div-cloud'>{cocktail.name}</h1>
           <Link
