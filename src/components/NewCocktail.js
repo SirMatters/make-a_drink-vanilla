@@ -13,7 +13,7 @@ class NewCocktail extends React.Component {
     newCocktail: {
       name: '',
       ingredients: [],
-      steps: { 1: '' },
+      steps: { 1: { text: '' } },
       description: '',
       image: '',
     },
@@ -47,7 +47,7 @@ class NewCocktail extends React.Component {
         newCocktail: {
           name: '',
           ingredients: [],
-          steps: { 1: '' },
+          steps: { 1: { text: '' } },
           description: '',
           image: '',
         },
@@ -80,7 +80,7 @@ class NewCocktail extends React.Component {
         ...this.state.newCocktail,
         steps: {
           ...steps,
-          [name.split('-')[1]]: value,
+          [name.split('-')[1]]: { text: value },
         },
       },
     });
@@ -114,7 +114,7 @@ class NewCocktail extends React.Component {
   };
 
   render() {
-    const { name, description, steps, image } = this.state.newCocktail;
+    const { name, description, steps } = this.state.newCocktail;
     return (
       <div className='new-cocktail'>
         <h1 className='new-cocktail__title'>Add a new awesome cocktail!</h1>
@@ -147,7 +147,7 @@ class NewCocktail extends React.Component {
               <li className='new-cocktail__step' key={`step-${s}`}>
                 <span className='step__number'>{s}</span>
                 <textarea
-                  value={steps[s]}
+                  value={steps[s].text}
                   name={`step-${s}`}
                   onChange={this.handleStepChange}
                 />
@@ -165,7 +165,7 @@ class NewCocktail extends React.Component {
             </button>
           </div>
           <button
-            className='new-coctail__submit'
+            className='new-cocktail__submit'
             disabled={name === ''}
             type='submit'
           >

@@ -113,11 +113,6 @@ class ViewCocktail extends React.Component {
     return (
       <Fragment>
         <ViewStyles className='cocktail'>
-          {/* <img
-            className='cocktail-img'
-            src={cocktail.image}
-            alt={`cocktail-${cocktail.id}-img`}
-          /> */}
           <div className='cocktail-img'>
             <ImageCarousel />
           </div>
@@ -144,7 +139,7 @@ class ViewCocktail extends React.Component {
               {Object.keys(steps).map((s) => (
                 <li className='cocktail__step div-cloud' key={`step-${s}`}>
                   <span className='step__number'>{s}</span>
-                  <div>{steps[s]}</div>
+                  <div>{steps[s].text}</div>
                 </li>
               ))}
             </ul>
