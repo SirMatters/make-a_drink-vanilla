@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CocktailCard from './CocktailCard';
-import { sortObjectsArr } from '../utils/utils';
+import { sortObjectsArr } from '../../utils/utils';
 import styled from 'styled-components';
 
 const DashboardStyles = styled.div`

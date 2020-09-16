@@ -4,8 +4,8 @@ import {
   handleAddCocktail,
   handleDeleteCocktail,
   handleEditCocktail,
-} from '../actions/cocktails';
-import { removeNumberedObjectItem } from '../utils/utils';
+} from '../../actions/cocktails';
+import { removeNumberedObjectItem } from '../../utils/utils';
 import { ImageUpload, ImageDisplay } from './ImageUpload';
 
 class NewCocktail extends React.Component {

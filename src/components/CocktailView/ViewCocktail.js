@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import StarsRating from './StarsRating';
-import { handleStarsVote } from '../actions/shared';
-import { handleReceiveComments } from '../actions/comments';
+import StarsRating from '../Common/StarsRating';
+import { handleStarsVote } from '../../actions/shared';
+import { handleReceiveComments } from '../../actions/comments';
 import NewComment from './NewComment';
 import CommentsList from './CommentsList';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import ImageCarousel from './ImageCarousel';
+import ImageCarousel from '../Common/ImageCarousel';
 
 const ViewStyles = styled.div`
   max-width: 100%;

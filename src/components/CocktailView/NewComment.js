@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleAddComment } from '../actions/comments';
+import { handleAddComment } from '../../actions/comments';
 import styled from 'styled-components';
 import TextareaAutosize from 'react-textarea-autosize';
 

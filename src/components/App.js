@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Dashboard from './Dashboard';
-import NewCocktail from './NewCocktail';
+import Dashboard from './Dashboard/Dashboard';
+import NewCocktail from './EditCocktail/NewCocktail';
 import Nav from './Nav';
 import { handleInitialData } from '../actions/shared';
 import LoadingBar from 'react-redux-loading-bar';
-import ViewCocktail from './ViewCocktail';
-import EditCocktail from './EditCocktail';
-import FourOFour from './FourOFour';
+import ViewCocktail from './CocktailView/ViewCocktail';
+import EditCocktail from './EditCocktail/EditCocktail';
+import FourOFour from './Common/FourOFour';
 import styled from 'styled-components';
 
 const AppStyles = styled.div`

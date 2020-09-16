@@ -4,12 +4,12 @@ import {
   handleCommentDelete,
   handleCommentEdit,
   handleToggleComment,
-} from '../actions/comments';
+} from '../../actions/comments';
 import CommentsList from './CommentsList';
 import NewComment from './NewComment';
 import styled from 'styled-components';
-import LikeButton from './LikeButton';
-import { timestampToDate, timestampToHumanString } from '../utils/utils.js';
+import LikeButton from '../Common/LikeButton';
+import { timestampToDate, timestampToHumanString } from '../../utils/utils.js';
 
 const CommentStyles = styled.div`
   font-size: 1.2rem;
