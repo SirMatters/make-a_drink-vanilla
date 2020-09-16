@@ -53,17 +53,19 @@ const CarouselStyles = styled.div`
   .carousel-preview {
     overflow-y: auto;
     flex: 1 1 15rem;
+
     ul {
       list-style: none;
       padding: 0;
       margin: 0;
+      width: 100%;
 
       .selected {
         border: 2px solid green;
       }
       li {
         img {
-          max-width: 10rem;
+          width: 100%;
         }
       }
     }
@@ -97,15 +99,17 @@ const ImageCarousel = (props) => {
     <CarouselStyles>
       <div className='carousel-preview'>
         <ul>
-          {Object.values(props.images).map((i) => (
-            <li
-              className={show === i.id ? 'selected' : null}
-              key={`img-prev-${i.id}`}
-              onClick={() => handlePreviewClick(i)}
-            >
-              <img src={i.imgUrls.large} />
-            </li>
-          ))}
+          {Object.values(props.images).map((i) =>
+            i.imgUrls.large !== '' ? (
+              <li
+                className={show === i.id ? 'selected' : null}
+                key={`img-prev-${i.id}`}
+                onClick={() => handlePreviewClick(i)}
+              >
+                <img src={i.imgUrls.large} />
+              </li>
+            ) : null
+          )}
         </ul>
       </div>
       <div className='carousel-show'>

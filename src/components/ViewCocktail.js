@@ -109,12 +109,13 @@ class ViewCocktail extends React.Component {
     return obj;
   };
 
+  cocktailImages = {
+    0: { id: 0, imgUrls: { large: this.props.cocktail.image } },
+    ...this.buildAdditionalImagesObj(this.props.cocktail),
+  };
+
   render() {
     const { cocktail, authedUser, comments } = this.props;
-    let cocktailImages = {
-      0: { id: 0, imgUrls: { large: cocktail.image } },
-      ...this.buildAdditionalImagesObj(cocktail),
-    };
 
     if (!cocktail) {
       return <Redirect to='/not_found' />;
@@ -126,7 +127,7 @@ class ViewCocktail extends React.Component {
       <Fragment>
         <ViewStyles className='cocktail'>
           <div className='cocktail-img'>
-            <ImageCarousel images={cocktailImages} />
+            <ImageCarousel images={this.cocktailImages} />
           </div>
           <h1 className='cocktail-title div-cloud'>{cocktail.name}</h1>
           <Link

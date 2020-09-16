@@ -21,45 +21,45 @@ let cocktails = {
       1: {
         id: 1,
         text: 'Get an old-fashioned glass',
-        img:
-          'https://downloader.disk.yandex.ru/preview/5718937eadbaf33f5aebac3d18d7c9da97af412ad158b272edd1805b22d945d8/5f60196e/ej9-S-7Fiyd92sbN_Y0OPxgX4ZmE94fm9DFaeMA52eLGtVD59oPXxx9LhURMuJYej0NXAwMGCcz8Hf6HfHdvAQ==?uid=0&filename=wr1.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&owner_uid=657391997&size=2048x2048',
+        img: '',
       },
       2: {
         id: 2,
         text:
           'For the cocktail you will need a huge ice cube. Crack if it is too large for the glass',
         img:
-          'https://downloader.disk.yandex.ru/preview/8cf5da0db28611fc94d63dc6d8a68ba3995b64ecdb4d1d69d96df727dbc5146f/5f6019c8/KDMtufClks4Wn6SrcOjZiRgX4ZmE94fm9DFaeMA52eIOByVBm_FC2fq5Os7oShKQIBInoSFJCEh4ZMUw3d_47w==?uid=0&filename=wr3.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&owner_uid=657391997&size=2048x2048',
+          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
       },
       3: {
         id: 3,
         text: 'Pour 2 portions of vodka',
         img:
-          'https://downloader.disk.yandex.ru/preview/dd703719fc71044e9d3f53877a9f0ec9a4ae3de2ccf8e162115ea55c9f04ce65/5f601a04/0EVaXUPtgYIrm615BKIoFhgX4ZmE94fm9DFaeMA52eIrBdkbzVeyurM7jWPNBzaRVHVPMkxzSkkQs94VSX6BYQ==?uid=0&filename=wr4.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&owner_uid=657391997&size=2048x2048',
+          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
       },
       4: {
         id: 4,
         text: 'Pour 2 portions of coffe liqueor',
-        img: 'https://yadi.sk/i/l83SAjJO_aL8gQ',
+        img:
+          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
       },
       5: {
         id: 5,
         text:
           'Pour 1 portion of heavy cream. Most people would say that the light cream is better, but classical recipe is with heave one',
         img:
-          'https://downloader.disk.yandex.ru/preview/f3f2430fbf90594267f5f9eae7a9f3ff2852889f0c4b1731e38a06cc021c6d55/5f601a1c/yusWJl8JOtC9bnzEBlZi509P7x2r004kvC84Y6vGNBpvvGFtK_w54HMR2mgGDcu6y-zkZ5PRQUST9v9LhfgaMQ==?uid=0&filename=wr5.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&owner_uid=657391997&size=2048x2048',
+          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
       },
       6: {
         id: 6,
         text: 'Mix it slightly',
         img:
-          'https://downloader.disk.yandex.ru/preview/fd9a554c26d7aea2eadff6a99af8db99c9ef80590bcc774b43f97ccfa770cb84/5f601a36/7__6zxd-EqKpRAmS7WgWIU9P7x2r004kvC84Y6vGNBr85gDnz9s1_rDZrxBVpzpJSEMUtRuZyTMyTCUHpyGQ7g==?uid=0&filename=wr6.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&owner_uid=657391997&size=2048x2048',
+          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
       },
       7: {
         id: 7,
         text: 'Drink like Big Lebovsky',
         img:
-          'https://downloader.disk.yandex.ru/preview/937da094ff620b35e270bbd6a54e15f5fc9015378d5a8bb507ac6ba85c6846a7/5f601a50/f8adZiucaC9HN5U0VWXW8nfKZbRBfS3cyeYZEWG24UZVJTnETIffAIYNWdX9J6hH19bKgjIZdkIAQVn39-ja9Q==?uid=0&filename=wr7.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&owner_uid=657391997&size=2048x2048',
+          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
       },
     },
     ingredients: [],

@@ -13,7 +13,7 @@ class NewCocktail extends React.Component {
     newCocktail: {
       name: '',
       ingredients: [],
-      steps: { 1: { text: '' } },
+      steps: { 1: { text: '', imgUrls: {} } },
       description: '',
       image: '',
     },
