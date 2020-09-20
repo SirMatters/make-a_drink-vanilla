@@ -6,21 +6,25 @@ const UploadStyle = styled.div`
   input {
     display: none;
   }
+  max-height: 15rem;
 `;
 
 const DisplayStyle = styled.div`
   position: relative;
+  max-height: 15rem;
 
   label {
     position: absolute;
     top: 0;
     left: 0;
+    max-height: 100%;
   }
 
   img {
     border: 2px dashed grey;
     margin: 1rem;
     padding: 1rem;
+    max-height: 15rem;
   }
 `;
 

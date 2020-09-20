@@ -21,45 +21,60 @@ let cocktails = {
       1: {
         id: 1,
         text: 'Get an old-fashioned glass',
-        img: '',
+        imgUrls: {
+          large:
+            'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        },
       },
       2: {
         id: 2,
         text:
           'For the cocktail you will need a huge ice cube. Crack if it is too large for the glass',
-        img:
-          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        imgUrls: {
+          large:
+            'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        },
       },
       3: {
         id: 3,
         text: 'Pour 2 portions of vodka',
-        img:
-          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        imgUrls: {
+          large:
+            'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        },
       },
       4: {
         id: 4,
         text: 'Pour 2 portions of coffe liqueor',
-        img:
-          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        imgUrls: {
+          large:
+            'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        },
       },
       5: {
         id: 5,
         text:
           'Pour 1 portion of heavy cream. Most people would say that the light cream is better, but classical recipe is with heave one',
-        img:
-          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        imgUrls: {
+          large:
+            'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        },
       },
       6: {
         id: 6,
         text: 'Mix it slightly',
-        img:
-          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        imgUrls: {
+          large:
+            'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        },
       },
       7: {
         id: 7,
         text: 'Drink like Big Lebovsky',
-        img:
-          'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        imgUrls: {
+          large:
+            'https://tipsybartender.com/wp-content/uploads/2018/02/Chocolate-White-Russian.jpg',
+        },
       },
     },
     ingredients: [],

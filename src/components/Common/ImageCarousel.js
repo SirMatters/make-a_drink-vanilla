@@ -3,41 +3,7 @@ import styled from 'styled-components';
 
 const initialData = {
   0: {
-    count: 0,
-    imgUrls: {
-      large:
-        'https://www.pngkey.com/png/detail/367-3676141_download-png-numeros-png-5.png',
-    },
-  },
-  1: {
-    count: 1,
-    imgUrls: {
-      large: 'https://pngimg.com/uploads/number1/number1_PNG14901.png',
-    },
-  },
-  2: {
-    count: 2,
-    imgUrls: {
-      large:
-        'https://www.pngkey.com/png/detail/367-3676141_download-png-numeros-png-5.png',
-    },
-  },
-  3: {
-    count: 3,
-    imgUrls: {
-      large:
-        'https://www.pngkey.com/png/detail/367-3676141_download-png-numeros-png-5.png',
-    },
-  },
-  4: {
-    count: 4,
-    imgUrls: {
-      large:
-        'https://www.pngkey.com/png/detail/367-3676141_download-png-numeros-png-5.png',
-    },
-  },
-  5: {
-    count: 5,
+    id: 0,
     imgUrls: {
       large:
         'https://www.pngkey.com/png/detail/367-3676141_download-png-numeros-png-5.png',

@@ -103,9 +103,10 @@ class ViewCocktail extends React.Component {
 
   buildAdditionalImagesObj = (cocktail) => {
     let obj = Object.values(cocktail.steps).reduce((a, b) => {
-      a[b.id] = { id: b.id, imgUrls: { large: b.img } };
+      a[b.id] = { id: b.id, imgUrls: b.imgUrls };
       return a;
     }, {});
+    console.log('additional img:', obj);
     return obj;
   };
 

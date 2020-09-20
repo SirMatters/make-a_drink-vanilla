@@ -8,13 +8,29 @@ import {
 import { removeNumberedObjectItem } from '../../utils/utils';
 import { ImageUpload, ImageDisplay } from './ImageUpload';
 import StepInput from './StepInput';
+import ImageCarousel from '../Common/ImageCarousel';
+import styled from 'styled-components';
+
+const EditStyles = styled.div`
+  display: grid;
+  grid-template-columns: minmax(35rem, 50rem) minmax(10rem, 1fr);
+  grid-template-rows: 5rem 1fr;
+  grid-template-areas:
+    'title title'
+    'img info';
+  justify-content: center;
+
+  .cocktail-title {
+    grid-area: title;
+  }
+`;
 
 class NewCocktail extends React.Component {
   state = {
     newCocktail: {
       name: '',
       ingredients: [],
-      steps: { 1: { text: '', imgUrls: { large: '' } } },
+      steps: { 1: { id: 1, text: '', imgUrls: { large: '' } } },
       description: '',
       image: '',
     },
@@ -49,7 +65,7 @@ class NewCocktail extends React.Component {
         newCocktail: {
           name: '',
           ingredients: [],
-          steps: { 1: { text: '', imgUrls: { large: '' } } },
+          steps: { 1: { id: 1, text: '', imgUrls: { large: '' } } },
           description: '',
           image: '',
         },
@@ -84,6 +100,7 @@ class NewCocktail extends React.Component {
         steps: {
           ...steps,
           [id]: {
+            id: id,
             text: value,
             imgUrls: this.state.newCocktail.steps[id].imgUrls,
           },
@@ -91,6 +108,7 @@ class NewCocktail extends React.Component {
       },
     });
   };
+
   handleStepImgChange = (id, imgUrl) => {
     this.setState((prevState) => ({
       ...prevState,
@@ -99,6 +117,7 @@ class NewCocktail extends React.Component {
         steps: {
           ...prevState.newCocktail.steps,
           [id]: {
+            id: id,
             text: prevState.newCocktail.steps[id].text,
             imgUrls: {
               large: imgUrl,
@@ -119,6 +138,7 @@ class NewCocktail extends React.Component {
         steps: {
           ...steps,
           [nextId]: {
+            id: nextId,
             text: '',
             imgUrls: {
               large: '',
@@ -143,9 +163,21 @@ class NewCocktail extends React.Component {
 
   render() {
     const { name, description, steps } = this.state.newCocktail;
+    const stepImgs = Object.keys(this.state.newCocktail.steps).reduce(
+      (a, b) => {
+        a[b] = { id: b, imgUrls: this.state.newCocktail.steps[b].imgUrls };
+        return a;
+      },
+      {}
+    );
+    const imgsArr = {
+      0: { id: 0, imgUrls: { large: this.state.newCocktail.image } },
+      ...stepImgs,
+    };
     return (
-      <div className='new-cocktail'>
-        <h1 className='new-cocktail__title'>Add a new awesome cocktail!</h1>
+      <EditStyles>
+        <h1 className='cocktail-title'>Add a new awesome cocktail!</h1>
+        <ImageCarousel images={imgsArr} />
         <form className='new-cocktail__form' onSubmit={this.onSumbmit}>
           <input
             className='new-cocktail__name'
@@ -194,7 +226,7 @@ class NewCocktail extends React.Component {
             Add Cocktail
           </button>
         </form>
-      </div>
+      </EditStyles>
     );
   }
 }
