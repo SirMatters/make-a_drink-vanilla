@@ -31,7 +31,7 @@ export const ImageDisplay = (props) => {
 
   return (
     <DisplayStyle>
-      <label for='cocktail-image'>
+      <label htmlFor='cocktail-image'>
         <FaTimesCircle size='1.5rem' onClick={removeImage} />
       </label>
       <img id='cocktail-image' src={props.image} />

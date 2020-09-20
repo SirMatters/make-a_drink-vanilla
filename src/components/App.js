@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Dashboard from './Dashboard/Dashboard';
 import NewCocktail from './EditCocktail/NewCocktail';
-import Nav from './Nav';
+import Nav from './Nav/Nav';
 import { handleInitialData } from '../actions/shared';
 import LoadingBar from 'react-redux-loading-bar';
 import ViewCocktail from './CocktailView/ViewCocktail';

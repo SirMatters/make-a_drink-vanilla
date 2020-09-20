@@ -7,13 +7,14 @@ import {
 } from '../../actions/cocktails';
 import { removeNumberedObjectItem } from '../../utils/utils';
 import { ImageUpload, ImageDisplay } from './ImageUpload';
+import StepInput from './StepInput';
 
 class NewCocktail extends React.Component {
   state = {
     newCocktail: {
       name: '',
       ingredients: [],
-      steps: { 1: { text: '', imgUrls: {} } },
+      steps: { 1: { text: '', imgUrls: { large: '' } } },
       description: '',
       image: '',
     },
@@ -28,13 +29,14 @@ class NewCocktail extends React.Component {
     }
   }
 
-  onImageSelect = (img) => {
-    this.setState({
+  handleMainImageSelect = (img) => {
+    this.setState((prevState) => ({
+      ...prevState,
       newCocktail: {
-        ...this.state.newCocktail,
+        ...prevState.newCocktail,
         image: img,
       },
-    });
+    }));
   };
 
   onSumbmit = (e) => {
@@ -47,7 +49,7 @@ class NewCocktail extends React.Component {
         newCocktail: {
           name: '',
           ingredients: [],
-          steps: { 1: { text: '' } },
+          steps: { 1: { text: '', imgUrls: { large: '' } } },
           description: '',
           image: '',
         },
@@ -72,18 +74,39 @@ class NewCocktail extends React.Component {
     }));
   };
 
-  handleStepChange = (e) => {
+  handleStepTextChange = (e) => {
     const { name, value } = e.target;
+    const id = name.split('-')[1];
     const { steps } = this.state.newCocktail;
     this.setState({
       newCocktail: {
         ...this.state.newCocktail,
         steps: {
           ...steps,
-          [name.split('-')[1]]: { text: value },
+          [id]: {
+            text: value,
+            imgUrls: this.state.newCocktail.steps[id].imgUrls,
+          },
         },
       },
     });
+  };
+  handleStepImgChange = (id, imgUrl) => {
+    this.setState((prevState) => ({
+      ...prevState,
+      newCocktail: {
+        ...prevState.newCocktail,
+        steps: {
+          ...prevState.newCocktail.steps,
+          [id]: {
+            text: prevState.newCocktail.steps[id].text,
+            imgUrls: {
+              large: imgUrl,
+            },
+          },
+        },
+      },
+    }));
   };
 
   handleNewStep = () => {
@@ -95,7 +118,12 @@ class NewCocktail extends React.Component {
         ...this.state.newCocktail,
         steps: {
           ...steps,
-          [nextId]: '',
+          [nextId]: {
+            text: '',
+            imgUrls: {
+              large: '',
+            },
+          },
         },
       },
     });
@@ -127,10 +155,10 @@ class NewCocktail extends React.Component {
             placeholder='Be creative...'
           />
           {this.state.newCocktail.image === '' ? (
-            <ImageUpload onImageSelect={this.onImageSelect} />
+            <ImageUpload onImageSelect={this.handleMainImageSelect} />
           ) : (
             <ImageDisplay
-              onImageSelect={this.onImageSelect}
+              onImageSelect={this.handleMainImageSelect}
               image={this.state.newCocktail.image}
             />
           )}
@@ -144,21 +172,15 @@ class NewCocktail extends React.Component {
           />
           <div className='new-cocktail__steps-container'>
             {Object.keys(steps).map((s) => (
-              <li className='new-cocktail__step' key={`step-${s}`}>
-                <span className='step__number'>{s}</span>
-                <textarea
-                  value={steps[s].text}
-                  name={`step-${s}`}
-                  onChange={this.handleStepChange}
-                />
-                <span
-                  onClick={() => {
-                    this.handleDeleteStep(s);
-                  }}
-                >
-                  X
-                </span>
-              </li>
+              <StepInput
+                key={s}
+                num={s}
+                onStepTextChange={this.handleStepTextChange}
+                onStepImgChange={this.handleStepImgChange}
+                onStepDelete={this.handleDeleteStep}
+                text={steps[s].text}
+                img={steps[s].imgUrls.large}
+              />
             ))}
             <button type='button' onClick={this.handleNewStep}>
               +
