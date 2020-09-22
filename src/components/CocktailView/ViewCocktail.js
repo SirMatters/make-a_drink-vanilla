@@ -9,7 +9,7 @@ import CommentsList from './CommentsList';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import ImageCarousel from '../Common/ImageCarousel';
-
+import StepView from './StepView';
 const ViewStyles = styled.div`
   max-width: 100%;
   display: grid;
@@ -60,6 +60,10 @@ const ViewStyles = styled.div`
 `;
 
 class ViewCocktail extends React.Component {
+  state = {
+    selected: 1,
+  };
+
   componentDidMount() {
     const { dispatch, id } = this.props;
     dispatch(handleReceiveComments(id));
@@ -101,6 +105,10 @@ class ViewCocktail extends React.Component {
     );
   };
 
+  handleStepSelect = (num) => {
+    this.setState({ selected: num });
+  };
+
   buildAdditionalImagesObj = (cocktail) => {
     let obj = Object.values(cocktail.steps).reduce((a, b) => {
       a[b.id] = { id: b.id, imgUrls: b.imgUrls };
@@ -128,7 +136,11 @@ class ViewCocktail extends React.Component {
       <Fragment>
         <ViewStyles className='cocktail'>
           <div className='cocktail-img'>
-            <ImageCarousel images={this.cocktailImages} />
+            <ImageCarousel
+              images={this.cocktailImages}
+              selected={this.state.selected}
+              onPreviewClick={this.handleStepSelect}
+            />
           </div>
           <h1 className='cocktail-title div-cloud'>{cocktail.name}</h1>
           <Link
@@ -151,10 +163,13 @@ class ViewCocktail extends React.Component {
             <h2>Preparation</h2>
             <ul>
               {Object.keys(steps).map((s) => (
-                <li className='cocktail__step div-cloud' key={`step-${s}`}>
-                  <span className='step__number'>{s}</span>
-                  <div>{steps[s].text}</div>
-                </li>
+                <StepView
+                  onStepClick={this.handleStepSelect}
+                  num={s}
+                  key={s}
+                  selected={this.state.selected.toString() === s}
+                  text={steps[s].text}
+                />
               ))}
             </ul>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const initialData = {
@@ -56,21 +56,38 @@ const CarouselStyles = styled.div`
 const ImageCarousel = (props) => {
   const [show, setShow] = useState(0);
 
-  const handlePreviewClick = (i) => {
-    console.log('image', i);
-    setShow(i.id);
+  const handlePreviewClick = (i, j) => {
+    if (props.images[props.selected]) {
+      setShow(i.id);
+      props.onPreviewClick(i.id);
+      liRefs[j].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
+    }
   };
+
+  useEffect(() => {
+    if (props.selected) {
+      setShow(props.selected);
+    }
+  }, [props.selected]);
+
+  const liRefs = Object.values(props.images).map((i) => {
+    return React.createRef();
+  });
 
   return (
     <CarouselStyles>
       <div className='carousel-preview'>
         <ul>
-          {Object.values(props.images).map((i) =>
+          {Object.values(props.images).map((i, j) =>
             i.imgUrls.large !== '' ? (
               <li
+                ref={liRefs[j]}
                 className={show === i.id ? 'selected' : null}
                 key={`img-prev-${i.id}`}
-                onClick={() => handlePreviewClick(i)}
+                onClick={() => handlePreviewClick(i, j)}
               >
                 <img src={i.imgUrls.large} />
               </li>
