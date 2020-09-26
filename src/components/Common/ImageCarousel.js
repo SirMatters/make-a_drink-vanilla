@@ -60,10 +60,6 @@ const ImageCarousel = (props) => {
     if (props.images[props.selected]) {
       setShow(i.id);
       props.onPreviewClick(i.id);
-      liRefs[j].current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-      });
     }
   };
 
@@ -73,10 +69,6 @@ const ImageCarousel = (props) => {
     }
   }, [props.selected]);
 
-  const liRefs = Object.values(props.images).map((i) => {
-    return React.createRef();
-  });
-
   return (
     <CarouselStyles>
       <div className='carousel-preview'>
@@ -84,7 +76,7 @@ const ImageCarousel = (props) => {
           {Object.values(props.images).map((i, j) =>
             i.imgUrls.large !== '' ? (
               <li
-                ref={liRefs[j]}
+                ref={props.imgRefs ? props.imgRefs[i] : null}
                 className={show === i.id ? 'selected' : null}
                 key={`img-prev-${i.id}`}
                 onClick={() => handlePreviewClick(i, j)}

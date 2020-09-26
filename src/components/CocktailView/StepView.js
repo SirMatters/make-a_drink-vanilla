@@ -9,7 +9,7 @@ const StepStyles = styled.li`
 
 export default (props) => {
   const onStepSelect = () => {
-    props.onStepClick(parseInt(props.num));
+    props.onStepClick(props.num);
   };
 
   return (

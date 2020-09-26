@@ -118,26 +118,28 @@ class ViewCocktail extends React.Component {
     return obj;
   };
 
-  cocktailImages = {
-    0: { id: 0, imgUrls: { large: this.props.cocktail.image } },
-    ...this.buildAdditionalImagesObj(this.props.cocktail),
-  };
-
   render() {
     const { cocktail, authedUser, comments } = this.props;
 
     if (!cocktail) {
       return <Redirect to='/not_found' />;
     }
+    const cocktailImages = {
+      0: { id: 0, imgUrls: { large: cocktail.image } },
+      ...this.buildAdditionalImagesObj(cocktail),
+    };
 
     const vote = authedUser.votes[cocktail.id];
     const { steps } = cocktail;
+    const imgRefs = Object.keys(cocktailImages).map((i) => React.createRef());
+
     return (
       <Fragment>
         <ViewStyles className='cocktail'>
           <div className='cocktail-img'>
             <ImageCarousel
-              images={this.cocktailImages}
+              imgRefs={imgRefs}
+              images={cocktailImages}
               selected={this.state.selected}
               onPreviewClick={this.handleStepSelect}
             />
@@ -162,15 +164,17 @@ class ViewCocktail extends React.Component {
           <div className='steps-container'>
             <h2>Preparation</h2>
             <ul>
-              {Object.keys(steps).map((s) => (
-                <StepView
-                  onStepClick={this.handleStepSelect}
-                  num={s}
-                  key={s}
-                  selected={this.state.selected.toString() === s}
-                  text={steps[s].text}
-                />
-              ))}
+              {Object.keys(steps)
+                .map((s) => parseInt(s))
+                .map((s) => (
+                  <StepView
+                    onStepClick={this.handleStepSelect}
+                    num={s}
+                    key={s}
+                    selected={this.state.selected.toString() === s}
+                    text={steps[s].text}
+                  />
+                ))}
             </ul>
           </div>
         </ViewStyles>
@@ -184,7 +188,7 @@ class ViewCocktail extends React.Component {
 
 const mapStateToProps = ({ authedUser, cocktails, users, comments }, props) => {
   const { id } = props.match.params;
-  const cocktail = cocktails[id];
+  const cocktail = cocktails[id] || {};
 
   const cocktailComments = Object.values(comments).reduce((a, b) => {
     if (b.isFor === id) {
