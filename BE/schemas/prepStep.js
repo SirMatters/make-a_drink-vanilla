@@ -1,17 +1,22 @@
 export default {
   name: 'prepStep',
-  title: 'Preparation step',
-  type: 'document',
-  fields: [{
-    name: 'stepAction',
-    title: 'Step Action',
-    type: 'text'
-  }, {
-    name: 'stepIcon',
-    title: 'Step demo icon',
-    type: 'image',
-    options: {
-      hotspot: true
+  title: 'Cocktail preparation step',
+  type: 'object',
+  fields: [
+    {
+      name: 'stepText', 
+      type: 'string', 
+      title: 'Step Action'
+    },
+    {
+      name: 'stepImage', 
+      type: 'image', 
+      title: 'Step demo image', 
+      options: {hotspot: true}
+    }, {
+      name: 'stepIngredient',
+      type: 'reference',
+      to: [{type: 'ingredient'}]
     }
-  }]
+  ]
 }

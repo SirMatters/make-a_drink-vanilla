@@ -27,25 +27,10 @@ export default {
     type: 'array',
     of: [{
       name:'prepStep', 
-      type: 'object', 
-      fields: [
-        {
-          name: 'stepText', 
-          type: 'string', 
-          title: 'Step Action'},
-        {
-          name: 'stepImage', 
-          type: 'image', 
-          title: 'Step demo image', 
-          options: {hotspot: true}
-        }, {
-          name: 'stepIngredient',
-          type: 'reference',
-          to: [{type: 'ingredient'}]
-        }
-      ]
-      //TODO: provide custom select
+      type: 'reference', 
+      to: [{type: 'prepStep'}]
     }]
+      //TODO: provide custom select
   }, {
     name: 'author',
     title: 'Cocktail author',
