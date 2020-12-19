@@ -27,8 +27,7 @@ export default {
     type: 'array',
     of: [{
       name:'prepStep', 
-      type: 'reference', 
-      to: [{type: 'prepStep'}]
+      type: 'prepStep', 
     }]
       //TODO: provide custom select
   }, {
