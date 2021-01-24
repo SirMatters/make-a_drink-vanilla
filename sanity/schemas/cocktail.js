@@ -1,4 +1,3 @@
-
 export default {
   name: 'cocktail',
   title: 'Cocktails',
@@ -10,7 +9,7 @@ export default {
     description: 'Name of the cocktail'
   }, 
   {
-    name: 'mainImage',
+    name: 'image',
     title: 'Cocktail main image',
     type: 'image',
     options: {
@@ -22,18 +21,35 @@ export default {
     title: 'Cocktail description',
     type: 'text',
   }, {
-    name: 'prepSteps',
+    name: 'steps',
     title: 'Preparation steps',
     type: 'array',
     of: [{
-      name:'prepStep', 
-      type: 'prepStep', 
+      type: 'string', 
     }]
-      //TODO: provide custom select
   }, {
     name: 'author',
     title: 'Cocktail author',
     type: 'reference',
     to: [{type: 'person'}]
-  }],
+  },
+  {
+    name: 'tags',
+    type: 'array',
+    of: [{type: 'string'}],
+    options: {
+      layout: 'tags'
+    }
+  },
+  {
+    name: 'ingredients',
+    type: 'array',
+    of: [
+      {
+        type: 'reference',
+        to: [{type: 'ingredient'}]
+      }
+    ]
+  }
+],
 }

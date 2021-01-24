@@ -3,10 +3,15 @@ export default {
   title: 'Persons',
   type: 'document',
   fields: [{
-    name: 'name',
-    title: 'Person Name',
+    name: 'firstName',
+    title: 'Person\'s first name',
     type: 'string',
-    description: 'person name'
+    description: 'person\'s first name'
+  }, {
+    name: 'lastName',
+    title: 'Person\'s last name',
+    type: 'string',
+    description: 'person\'s last name'
   }, {
     name: 'handle',
     title: 'Handle',
@@ -23,5 +28,23 @@ export default {
     options: {
       hotspot: true
     }
-  }]
+  }, {
+    name: 'votes',
+    type: 'array',
+    of: [{type: 'vote',}]
+  }],
+  preivew: {
+    select: {
+      firstName: 'firstName',
+      lastName: 'lastName',
+      handle: 'handle',
+    },
+    prepare(selection) {
+      const {firstName, lastName, handle} = selection;
+      return {
+        title: `${firstName} ${lastName}`,
+        subtitle: handle
+      }
+    }
+  }
 }
