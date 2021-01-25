@@ -7,11 +7,11 @@ const SANITY_TOKEN = process.env.SANITY_TOKEN;
 const client = sanityClient({
   projectId: 'dbheocak',
   dataset: 'production',
-  token: SANITY_TOKEN,
+  // token: SANITY_TOKEN,
   useCdn: true
 })
 
-const query = '*[_type == "cocktail"]';
+const query = `*[_type == "cocktail"]`;
 client
   .fetch(query)
   .then(cocktails => {
