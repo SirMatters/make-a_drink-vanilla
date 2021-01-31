@@ -38,6 +38,7 @@ export const _getCocktails = () => {
     "id": _id,
     name, 
     steps,
+    description,
     "author": author->_id,
     "timestamp": _createdAt,
     "ingredients": ingredients[] -> _id,
