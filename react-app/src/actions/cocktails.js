@@ -1,9 +1,11 @@
 import {
-  _getCocktails,
+  // _getCocktails,
   _addCocktail,
   _deleteCocktail,
   _editCocktail,
 } from '../utils/API';
+
+import {_getCocktails} from '../utils/sanity_API'
 
 export const GET_COCKTAILS = 'GET_COCKTAILS';
 export const ADD_COCKTAIL = 'ADD_COCKTAIL';

@@ -15,7 +15,7 @@ const client = sanityClient({
 const formatCocktail = (cocktail) => {
   cocktail.steps = cocktail.steps || [];
 	return {
-		...cocktail,
+    ...cocktail,
 		"votes" : cocktail.votes.length || 0,
 		"score" : +(cocktail.votes.reduce((a,b) => {
 			a += b.votes[0].score
@@ -23,7 +23,7 @@ const formatCocktail = (cocktail) => {
 		}, 0) / cocktail.votes.length).toFixed(2) || 0,
 		"timestamp": new Date(cocktail.timestamp).getTime(),
 		"steps": cocktail.steps.reduce((a,b,i) => {
-			a[i+1] = b;
+			a[i+1] = {text: b};
 			return a
 		}, {})
 	}
@@ -49,7 +49,14 @@ export const _getCocktails = () => {
   `
   return client
     .fetch(query)
-    .then(cocktails => cocktails.map(formatCocktail))
+    .then(cocktails => {
+      console.log('Fetched cocktails from Sanity:', cocktails)
+      return cocktails.reduce((a,b) => {
+        a[b.id] = formatCocktail(b);
+
+        return a;
+      }, {})
+    })
 }
 
 export const _deleteCocktail  = () => {}
@@ -161,6 +168,15 @@ export const _getComments = () => {
       return a
     }, {})
   })
+}
+
+export const _getInitialData = () => {
+  return Promise.all([
+    _getCocktails(),
+    _getUsers()
+  ]).then(([cocktails, users]) => {
+    return {cocktails, users}
+  }).catch(err => console.log('Error fetching cocktails/users in _getInitialData()', err))
 }
 
 (async () => {

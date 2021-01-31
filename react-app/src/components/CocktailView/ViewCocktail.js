@@ -10,6 +10,7 @@ import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import ImageCarousel from '../Common/ImageCarousel';
 import StepView from './StepView';
+
 const ViewStyles = styled.div`
   max-width: 100%;
   display: grid;
@@ -137,12 +138,12 @@ class ViewCocktail extends React.Component {
       <Fragment>
         <ViewStyles className='cocktail'>
           <div className='cocktail-img'>
-            <ImageCarousel
+            {/* <ImageCarousel
               imgRefs={imgRefs}
               images={cocktailImages}
               selected={this.state.selected}
               onPreviewClick={this.handleStepSelect}
-            />
+            /> */}
           </div>
           <h1 className='cocktail-title div-cloud'>{cocktail.name}</h1>
           <Link
@@ -168,7 +169,8 @@ class ViewCocktail extends React.Component {
                 .map((s) => parseInt(s))
                 .map((s) => (
                   <StepView
-                    onStepClick={this.handleStepSelect}
+                    // TODO: conisder if sth still has to happen
+                    // onStepClick={this.handleStepSelect} 
                     num={s}
                     key={s}
                     selected={this.state.selected.toString() === s}

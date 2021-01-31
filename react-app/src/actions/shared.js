@@ -1,11 +1,13 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import {
-  _getInitialData,
+  // _getInitialData,
   _getRatingVote,
   _updateUser,
   _editCocktail,
   _addComment,
 } from '../utils/API';
+
+import {_getInitialData} from '../utils/sanity_API';
 import { getCocktails, editCocktail } from './cocktails';
 import { handleUserAuthentication, authenticateUser } from './authedUser';
 import { getUsers, updateUser } from './users';
