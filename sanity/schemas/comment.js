@@ -26,7 +26,6 @@ export default {
       name: 'replyingTo',
       type: 'reference',
       to: [{type: 'comment'}],
-      
     }
   ],
   preview: {
