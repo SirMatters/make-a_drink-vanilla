@@ -45,7 +45,8 @@ export const _getCocktails = () => {
      "votes": *[_type == "person" && references(^._id)] {votes[]{
         score,
         "id": cocktail._ref
-      }}
+      }},
+    "image": image.asset -> url 
   }
   `
   return client
@@ -147,13 +148,16 @@ export const _formatComment = (comment) => {
   comment.timestamp = comment.timestamp || new Date().getTime();
   comment.timestamp = new Date(comment.timestamp).getTime()
   comment.edited = null; // FIXME: replace null with exact value
+  comment.replyingTo = comment.replyingTo || null;
+  comment.likes = comment.likes || []
   return comment
 }
 
-export const _getComments = () => {
+export const _getComments = (cocktailId) => {
+  console.log("Sanity API: looking for comments of cocktail:", cocktailId)
   return client
   .fetch(`
-    *[_type == "comment" && !(_id in path('drafts.**'))] {
+    *[_type == "comment" && !(_id in path('drafts.**')) && references("${cocktailId}")] {
       "id": _id,
       text,
       "author" : author -> _id,
@@ -164,10 +168,12 @@ export const _getComments = () => {
     }
   `)
   .then(comments => {
-    return comments.reduce((a,b) => {
+    const res = comments.reduce((a,b) => {
       a[b.id] = _formatComment(b);
       return a
     }, {})
+    console.log('Comments from Sanity API:', res)
+    return res
   })
 }
 
@@ -180,7 +186,7 @@ export const _getInitialData = () => {
   }).catch(err => console.log('Error fetching cocktails/users in _getInitialData()', err))
 }
 
-(async () => {
-  const ent = await _getUserDataById('8ac170bf-65a8-4d0e-b649-5b31b16f5d90');
-  console.log(ent)
-})();
+// (async () => {
+//   const ent = await _getUserDataById('8ac170bf-65a8-4d0e-b649-5b31b16f5d90');
+//   console.log(ent)
+// })();

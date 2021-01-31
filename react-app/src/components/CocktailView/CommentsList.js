@@ -35,13 +35,14 @@ const CommentsList = ({ isFor, replyingTo = null }) => {
 
   const displayComments = (
     Object.values(comments).reduce((a, b) => {
+      console.log('Comment to check:', b, replyingTo, b.replyingTo === replyingTo)
       if (b.replyingTo === replyingTo) {
         a.push(b);
       }
       return a;
     }, []) || []
   ).sort((a, b) => a.timestamp - b.timestamp);
-  console.log('comments', displayComments);
+  console.log('comments from CommentList', displayComments);
   return (
     <CommentListStyles>
       <ul>

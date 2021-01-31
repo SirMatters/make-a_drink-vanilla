@@ -93,6 +93,7 @@ const CommentStyles = styled.div`
 `;
 
 const Comment = ({ comment, authedUser, onSelect, isSelected }) => {
+
   const dispatch = useDispatch();
   const authorData = useSelector((state) => state.users[comment.author]);
   const [isEditing, setEditing] = useState(false);

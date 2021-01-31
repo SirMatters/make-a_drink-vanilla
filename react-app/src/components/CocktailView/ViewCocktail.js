@@ -8,8 +8,9 @@ import NewComment from './NewComment';
 import CommentsList from './CommentsList';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import ImageCarousel from '../Common/ImageCarousel';
+// import ImageCarousel from '../Common/ImageCarousel';
 import StepView from './StepView';
+import SimpleImage from '../Common/SimpleImage';
 
 const ViewStyles = styled.div`
   max-width: 100%;
@@ -110,14 +111,14 @@ class ViewCocktail extends React.Component {
     this.setState({ selected: num });
   };
 
-  buildAdditionalImagesObj = (cocktail) => {
-    let obj = Object.values(cocktail.steps).reduce((a, b) => {
-      a[b.id] = { id: b.id, imgUrls: b.imgUrls };
-      return a;
-    }, {});
-    console.log('additional img:', obj);
-    return obj;
-  };
+  // buildAdditionalImagesObj = (cocktail) => {
+  //   let obj = Object.values(cocktail.steps).reduce((a, b) => {
+  //     a[b.id] = { id: b.id, imgUrls: b.imgUrls };
+  //     return a;
+  //   }, {});
+  //   console.log('additional img:', obj);
+  //   return obj;
+  // };
 
   render() {
     const { cocktail, authedUser, comments } = this.props;
@@ -125,25 +126,26 @@ class ViewCocktail extends React.Component {
     if (!cocktail) {
       return <Redirect to='/not_found' />;
     }
-    const cocktailImages = {
-      0: { id: 0, imgUrls: { large: cocktail.image } },
-      ...this.buildAdditionalImagesObj(cocktail),
-    };
+    // const cocktailImages = {
+    //   0: { id: 0, imgUrls: { large: cocktail.image } },
+    // ...this.buildAdditionalImagesObj(cocktail),
+    // };
 
     const vote = authedUser.votes[cocktail.id];
-    const { steps } = cocktail;
-    const imgRefs = Object.keys(cocktailImages).map((i) => React.createRef());
+    const { steps, image } = cocktail;
+    // const imgRefs = Object.keys(cocktailImages).map((i) => React.createRef());
 
     return (
-      <Fragment>
+      <>
         <ViewStyles className='cocktail'>
           <div className='cocktail-img'>
             {/* <ImageCarousel
-              imgRefs={imgRefs}
+              // imgRefs={imgRefs}
               images={cocktailImages}
               selected={this.state.selected}
               onPreviewClick={this.handleStepSelect}
             /> */}
+            <SimpleImage url={image}/>
           </div>
           <h1 className='cocktail-title div-cloud'>{cocktail.name}</h1>
           <Link
@@ -183,7 +185,7 @@ class ViewCocktail extends React.Component {
         <h2>Comments</h2>
         <NewComment isFor={cocktail.id} />
         {comments && <CommentsList isFor={cocktail.id} />}
-      </Fragment>
+      </>
     );
   }
 }

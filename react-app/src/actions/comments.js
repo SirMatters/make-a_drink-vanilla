@@ -1,10 +1,13 @@
 import {
-  _getComments,
+  // _getComments,
   _deleteComment,
   _addComment,
   _editComment,
   _toggleComment,
 } from '../utils/API';
+
+import {_getComments} from '../utils/sanity_API';
+
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTs';
@@ -20,7 +23,8 @@ const receiveComments = (comments) => ({
 
 export const handleReceiveComments = (cocktailId) => {
   return (dispatch) => {
-    _getComments(cocktailId).then(({ comments }) => {
+    _getComments(cocktailId).then((comments) => {
+      console.log('handleReceiveComments():', comments)
       dispatch(receiveComments(comments));
     });
   };
