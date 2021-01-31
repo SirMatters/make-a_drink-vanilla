@@ -15,7 +15,8 @@ export const handleInitialData = () => {
   return (dispatch) => {
     dispatch(showLoading());
     _getInitialData().then(({ cocktails, users }) => {
-      dispatch(handleUserAuthentication('u1'));
+      //TODO: change hardoced user id
+      dispatch(handleUserAuthentication('8ac170bf-65a8-4d0e-b649-5b31b16f5d90'));
       dispatch(getCocktails(cocktails));
       dispatch(getUsers(users));
       dispatch(hideLoading());

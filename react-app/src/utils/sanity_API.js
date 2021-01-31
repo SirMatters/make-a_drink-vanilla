@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import { _getUsersByIds } from './API';
 const sanityClient = require('@sanity/client');
 
 dotenv.config({path: '.env'});
@@ -8,44 +9,53 @@ const client = sanityClient({
   projectId: 'dbheocak',
   dataset: 'production',
   token: SANITY_TOKEN,
-  useCdn: true
+  useCdn: false
 })
 
-const formatCocktails = (cocktails) => {
-  const res = cocktails.reduce((a,b) => {
-    a[b._id] = {};
-    a[b._id] = {
-      id: b._id,
-      name: b._name,
-      timestamp: new Date(b._createdAt).getTime(),
-      author: b.author._ref, // FIXME: get acutal person, not ref
-      description: b.description,
-      steps: b.prepSteps ? b.prepSteps.reduce((aa,bb,ii) => {
-        aa[ii+1] = { text: bb.stepText}
-        return aa
-      },{}) : {},
-      ingredients: [],
-      tags: [],
-      image: b.mainImage._ref // FIXME: get actual image link, not ref
-    };
-    return a
-  }, {})
-  return res
+const formatCocktail = (cocktail) => {
+  cocktail.steps = cocktail.steps || [];
+	return {
+		...cocktail,
+		"votes" : cocktail.votes.length || 0,
+		"score" : +(cocktail.votes.reduce((a,b) => {
+			a += b.votes[0].score
+			return a
+		}, 0) / cocktail.votes.length).toFixed(2) || 0,
+		"timestamp": new Date(cocktail.timestamp).getTime(),
+		"steps": cocktail.steps.reduce((a,b,i) => {
+			a[i+1] = b;
+			return a
+		}, {})
+	}
 }
 
 export const _getCocktails = () => {
-  const query =  `*[_type == "cocktail" && !(_id in path('drafts.**'))]`
+  const query =  `
+  *[
+    _type == "cocktail" &&
+    !(_id in path('drafts.**'))
+  ] {
+    "id": _id,
+    name, 
+    steps,
+    "author": author->_id,
+    "timestamp": _createdAt,
+    "ingredients": ingredients[] -> _id,
+     "votes": *[_type == "person" && references(^._id)] {votes[]{
+        score,
+        "id": cocktail._ref
+      }}
+  }
+  `
   return client
     .fetch(query)
-    .then(cocktails => formatCocktails(cocktails))
+    .then(cocktails => cocktails.map(formatCocktail))
 }
 
 export const _deleteCocktail  = () => {}
 
 export const _editCocktail  = () => {}
 
-
-// _getCocktails();
 
 const testCocktail = {
   _type: 'cocktail',
@@ -62,6 +72,7 @@ const testCocktail = {
   tags: ['beer', 'vodka'],
   ingredients: []
 }
+
 const _addCocktail = (cocktail) => {
   return client
     .create(cocktail)
@@ -70,22 +81,21 @@ const _addCocktail = (cocktail) => {
   })
 }
 
-// _addCocktail(testCocktail)
 
 const formatPerson = (person) => {
 	person.votes = person.votes || []
-  person.votes = person.votes.map(v => {
-    return {
-      [v.id]: v.score
-    }
-  })
+  person.votes = person.votes.reduce((a,b) => {
+    a[b.id] = b.score
+    return a
+  }, {})
 	return person
 }
 
-const _getPersons = () => {
+export const _getUsers = () => {
   return client
     .fetch(`
-    *[_type == "person" && !(_id in path('drafts.**'))]{
+    *[_type == "person" && 
+    !(_id in path('drafts.**'))]{
       "id": _id,
       "handle": handle.current,
       firstName,
@@ -93,31 +103,67 @@ const _getPersons = () => {
       "avatar": avatar.asset->url,
       "votes" : votes[] {
         score,
-        "id": cocktail._ref
+        "id": cocktail -> _id
 			}
     }
     `)
-    .then(res => {
-      console.log(JSON.stringify(res))
+    .then(persons => {
+      return persons.reduce((a,b) => {
+        a[b.id] = formatPerson(b);
+        return a
+      }, {})
     })
 }
 
-const _formatComment = (comment) => {
+export const _getUserDataById = (userId) => {
+  return client.fetch(`
+  *[_id == "${userId}"]{
+    "id": _id,
+      "handle": handle.current,
+      firstName,
+      lastName,
+      "avatar": avatar.asset->url,
+      "votes" : votes[] {
+        score,
+        "id": cocktail -> _id
+			}
+  }`)
+  .then(res => {
+    console.log('Person fetched from sanity:', formatPerson(res[0]))
+    return res[0]
+  })
+  .catch(err => `User fetch error: ${err}`)
+}
+
+export const _formatComment = (comment) => {
   comment.timestamp = comment.timestamp || new Date().getTime();
   comment.timestamp = new Date(comment.timestamp).getTime()
   comment.edited = null; // FIXME: replace null with exact value
   return comment
 }
 
-const _getComments = () => {
-  return client.fetch(`
-  *[_type == "comment" && !(_id in path('drafts.**'))] {
-    "id": _id,
-    text,
-    "author" : author -> _id,
-    "timestamp" : _cratedAt,
-    "isFor" : isFor -> _id,
-    likes,
-    "replyingTo" : replyingTo -> _id
-  }`)
+export const _getComments = () => {
+  return client
+  .fetch(`
+    *[_type == "comment" && !(_id in path('drafts.**'))] {
+      "id": _id,
+      text,
+      "author" : author -> _id,
+      "timestamp" : _cratedAt,
+      "isFor" : isFor -> _id,
+      likes,
+      "replyingTo" : replyingTo -> _id
+    }
+  `)
+  .then(comments => {
+    return comments.reduce((a,b) => {
+      a[b.id] = _formatComment(b);
+      return a
+    }, {})
+  })
 }
+
+(async () => {
+  const ent = await _getUserDataById('8ac170bf-65a8-4d0e-b649-5b31b16f5d90');
+  console.log(ent)
+})();
